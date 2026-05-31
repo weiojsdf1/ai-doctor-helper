@@ -403,6 +403,4 @@ html[data-theme="dark"] .clinical-alert--info {
 }
 
 @media (max-width: 720px) {
-  .auth-topbar { inset-inline: 12px; justify-content: center; flex-wrap: wrap; border-radius: 20px; }
-  .auth-screen { padding-top: 86px; }
 }

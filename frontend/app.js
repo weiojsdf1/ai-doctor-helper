@@ -30,8 +30,8 @@ const I18N = {
     legendTitle: 'دليل ألوان الإشعارات الطبية',
     xrayResultKicker: 'نتيجة التصوير', xrayResultTitle: 'تفسير صورة الأشعة', notAnalyzed: 'لم يتم التحليل', xrayEmpty: 'قم بتحليل صورة الأشعة لعرض الملخص المهم والإشعارات الطبية هنا.',
     labResultKicker: 'نتيجة التحاليل', labResultTitle: 'ملخص التحليل المخبري', notAdded: 'لم تتم الإضافة', labEmpty: 'بعد رفع التحليل ستظهر القيم المهمة فقط، دون عرض نص OCR الطويل.',
-    integratedKicker: 'الملخص السريري', integratedTitle: 'السياق الطبي المتكامل', refreshReports: 'تحديث التقارير', integratedEmpty: 'لا يوجد ملخص متكامل بعد. أكمل تحليل الأشعة أولًا، ثم أضف التحاليل اختياريًا.',
-    chatKicker: 'مساعد يعتمد على سياق المريض', chatTitle: '4. المساعد الطبي', waitingContext: 'بانتظار السياق', chatWelcome: 'قم بتحليل صورة الأشعة أولًا، ثم اسأل عن سياق المريض المحفوظ. هذا المساعد للدعم التعليمي فقط وليس تشخيصًا نهائيًا.',
+    integratedKicker: 'الملخص السريري', integratedTitle: 'السياق الطبي المتكامل', refreshReports: 'تحديث التقارير', integratedEmpty: 'لا يوجد ملخص متكامل بعد. أكمل تحليل الأشعة أولاً، ثم أضف التحاليل اختيارياً.',
+    chatKicker: 'مساعد يعتمد على سياق المريض', chatTitle: '4. المساعد الطبي', waitingContext: 'بانتظار السياق', chatWelcome: 'قم بتحليل صورة الأشعة أولاً، ثم اسأل عن سياق المريض المحفوظ. هذا المساعد للدعم التعليمي فقط وليس تشخيصاً نهائياً.',
     chatPlaceholder: 'اسأل عن حالة المريض والسياق المحفوظ...', send: 'إرسال',
     quickInitial: 'الانطباع الأولي', quickSummary: 'ملخص الأشعة والتحاليل', quickChecks: 'الفحوصات التالية', quickTeaching: 'التوضيح والشرح',
     status: 'الحالة', source: 'المصدر', xrayFiles: 'ملفات الأشعة', labFiles: 'ملفات التحاليل',
@@ -44,10 +44,10 @@ const I18N = {
     imageQuality: 'جودة الصورة', severity: 'تقدير الشدة', findings: 'النتائج', impression: 'الانطباع', recommendations: 'التوصيات', alerts: 'التنبيهات',
     labImportantValues: 'القيم المخبرية المهمة', labInterpretation: 'تفسير التحاليل', noAbnormalLab: 'لم يتم تمييز قيم مخبرية شاذة بوضوح.', rawHidden: 'تم إخفاء نص OCR الكامل لإبقاء الواجهة مختصرة. يمكن مراجعة التقرير الكامل عند الحاجة.',
     integratedInterpretation: 'التفسير المتكامل', medicalExplanation: 'شرح طبي مختصر', openReport: 'فتح التقرير', downloadReport: 'تحميل التقرير', openLatestReport: 'فتح أحدث تقرير', downloadLatestReport: 'تحميل أحدث تقرير',
-    warnings: 'تحذيرات', noWarnings: 'لا توجد تحذيرات', reportLoading: 'جاري تحميل ملخص التقرير...', reportLoadFailed: 'تعذر تحميل ملخص التقرير تلقائيًا. استخدم زر فتح التقرير.',
-    creatingPatient: 'جاري إنشاء المريض...', patientNameRequired: 'اسم المريض مطلوب.', patientCreated: 'تم إنشاء المريض', enterPatientId: 'أدخل رقم المريض أولًا.', loadingPatient: 'جاري تحميل بيانات المريض...', usingPatient: 'يتم استخدام المريض',
-    createOrLoadFirst: 'أنشئ مريضًا أو حمّل مريضًا موجودًا أولًا.', chooseFileFirst: 'اختر صورة أولًا.', uploading: 'جاري الرفع...', uploadSuccess: 'تم رفع الملف بنجاح.', fileMissingAfterUpload: 'اكتمل طلب الرفع، لكن الملف لم يظهر ضمن ملفات المريض.', noUploadedFile: 'لا يوجد ملف مرفوع لهذا المريض. اختر الملف وارفعه أولًا.',
-    analyzingXray: 'جاري تحليل الأشعة...', checkingXray: 'جاري التحقق من رفع صورة الأشعة...', xrayMayTake: 'جاري تحليل الأشعة بواسطة خدمة الذكاء الاصطناعي. قد يستغرق الطلب الأول وقتًا أطول...', xrayFallback: 'عاد تحليل الأشعة بوضع احتياطي. راجع التحذيرات.', xrayDone: 'اكتمل تحليل الأشعة. أصبحت المحادثة متاحة الآن.',
+    warnings: 'تحذيرات', noWarnings: 'لا توجد تحذيرات', reportLoading: 'جاري تحميل ملخص التقرير...', reportLoadFailed: 'تعذر تحميل ملخص التقرير تلقائياً. استخدم زر فتح التقرير.',
+    creatingPatient: 'جاري إنشاء المريض...', patientNameRequired: 'اسم المريض مطلوب.', patientCreated: 'تم إنشاء المريض', enterPatientId: 'أدخل رقم المريض أولاً.', loadingPatient: 'جاري تحميل بيانات المريض...', usingPatient: 'يتم استخدام المريض',
+    createOrLoadFirst: 'أنشئ مريضاً أو حمّل مريضاً موجوداً أولاً.', chooseFileFirst: 'اختر صورة أولاً.', uploading: 'جاري الرفع...', uploadSuccess: 'تم رفع الملف بنجاح.', fileMissingAfterUpload: 'اكتمل طلب الرفع، لكن الملف لم يظهر ضمن ملفات المريض.', noUploadedFile: 'لا يوجد ملف مرفوع لهذا المريض. اختر الملف وارفعه أولاً.',
+    analyzingXray: 'جاري تحليل الأشعة...', checkingXray: 'جاري التحقق من رفع صورة الأشعة...', xrayMayTake: 'جاري تحليل الأشعة بواسطة خدمة الذكاء الاصطناعي. قد يستغرق الطلب الأول وقتاً أطول...', xrayFallback: 'عاد تحليل الأشعة بوضع احتياطي. راجع التحذيرات.', xrayDone: 'اكتمل تحليل الأشعة. أصبحت المحادثة متاحة الآن.',
     analyzingLab: 'جاري تحليل المختبر ودمج السياق...', checkingLab: 'جاري التحقق من رفع صورة التحليل...', labMayTake: 'جاري تحليل تقرير المختبر ودمجه مع سياق الأشعة المحفوظ...', labDoneWarnings: 'اكتمل دمج التحاليل مع وجود تحذيرات.', labDone: 'اكتمل دمج التحاليل.',
     contextReady: 'السياق جاهز', askingAssistant: 'جاري سؤال المساعد...', sendingQuestion: 'جاري إرسال السؤال...', answerReceived: 'تم استلام الإجابة.', sourceLabel: 'المصدر', refreshedReport: 'تم تحميل أحدث تقرير', noReports: 'لا توجد تقارير لهذا المريض.', refreshingReports: 'جاري تحديث أحدث تقرير...', actionFailed: 'فشل الإجراء', chatFailed: 'فشلت المحادثة',
     tableTest: 'التحليل', tableValue: 'القيمة', tableUnit: 'الوحدة', tableStatus: 'الحالة', tableRange: 'المدى المرجعي',
@@ -203,6 +203,8 @@ function setLanguage(lang) {
 
   $('langArBtn')?.classList.toggle('is-active', state.lang === 'ar');
   $('langEnBtn')?.classList.toggle('is-active', state.lang === 'en');
+  $('authLangArBtn')?.classList.toggle('is-active', state.lang === 'ar');
+  $('authLangEnBtn')?.classList.toggle('is-active', state.lang === 'en');
   renderSeverityLegend();
   updatePatientBadges();
   updateAuthVisibility();
@@ -334,8 +336,8 @@ function classifySeverity(text, explicitSeverity = '', warnings = []) {
 function alertCopy(level, context = '') {
   const byLevel = {
     critical: [t('attentionRequired'), state.lang === 'ar' ? 'توجد مؤشرات قد تكون عالية الخطورة وتحتاج مراجعة فورية.' : 'Potential high-risk findings require urgent review.'],
-    high: [t('monitorClosely'), state.lang === 'ar' ? 'النتائج غير مطمئنة بالكامل وتحتاج ربطًا سريريًا ومتابعة الطبيب.' : 'Findings are not fully reassuring and need clinical correlation.'],
-    moderate: [t('moderateConcern'), state.lang === 'ar' ? 'توجد ملاحظة تحتاج متابعة دون اعتبارها تشخيصًا نهائيًا.' : 'There is a note that needs follow-up; not a final diagnosis.'],
+    high: [t('monitorClosely'), state.lang === 'ar' ? 'النتائج غير مطمئنة بالكامل وتحتاج ربطاً سريرياً ومتابعة الطبيب.' : 'Findings are not fully reassuring and need clinical correlation.'],
+    moderate: [t('moderateConcern'), state.lang === 'ar' ? 'توجد ملاحظة تحتاج متابعة دون اعتبارها تشخيصاً نهائياً.' : 'There is a note that needs follow-up; not a final diagnosis.'],
     normal: [t('stableSummary'), state.lang === 'ar' ? 'لا تظهر مؤشرات خطورة واضحة ضمن الملخص المتاح.' : 'No clear high-risk signal in the available summary.'],
     info: [t('infoSummary'), state.lang === 'ar' ? 'تتوفر معلومات داعمة تحتاج قراءة الطبيب.' : 'Supportive context information is available.'],
   };
@@ -812,17 +814,26 @@ function updateThemeButtons() {
   const appButton = $('themeToggleBtn');
   const authButton = $('authThemeToggleBtn');
   if (appButton) appButton.textContent = appLabel;
-  if (authButton) authButton.textContent = authLabel;
+  if (authButton) {
+    const iconNode = authButton.querySelector('.theme-icon');
+    if (iconNode) iconNode.textContent = state.theme === 'dark' ? '☀' : '☾';
+    else authButton.textContent = authLabel;
+    authButton.setAttribute('aria-label', authLabel);
+    authButton.setAttribute('title', authLabel);
+  }
 }
 
 function updatePasswordToggleLabels() {
   document.querySelectorAll('[data-toggle-password]').forEach((button) => {
-    const target = $(button.dataset.togglePassword);
-    const isVisible = target?.type === 'text';
+    const input = $(button.dataset.togglePassword);
+    const isVisible = input?.type === 'text';
     const useAuthEnglish = Boolean(button.closest('#authScreen'));
-    button.textContent = isVisible
+    const label = isVisible
       ? (useAuthEnglish ? authT('hidePassword') : t('hidePassword'))
       : (useAuthEnglish ? authT('showPassword') : t('showPassword'));
+    button.classList.toggle('is-visible', Boolean(isVisible));
+    button.setAttribute('aria-label', label);
+    button.setAttribute('title', label);
   });
 }
 
@@ -830,6 +841,8 @@ function initializeDisplayControls() {
   applyTheme(state.theme);
   $('themeToggleBtn')?.addEventListener('click', toggleTheme);
   $('authThemeToggleBtn')?.addEventListener('click', toggleTheme);
+  $('authLangArBtn')?.addEventListener('click', () => setLanguage('ar'));
+  $('authLangEnBtn')?.addEventListener('click', () => setLanguage('en'));
 
   document.querySelectorAll('[data-toggle-password]').forEach((button) => {
     button.addEventListener('click', () => {
