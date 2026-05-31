@@ -3,14 +3,15 @@ const I18N = {
     heroKicker: 'منصة دعم القرار الطبي',
     heroSubtitle: 'تحليل أشعة الصدر، دمج التحاليل، ومحادثة طبية مبنية على سياق المريض.',
     doctorPortalTitle: 'بوابة الطبيب',
-    doctorPortalSubtitle: 'ابدأ بتسجيل الدخول للوصول إلى مساحة تحليل الحالات الطبية وإدارة تقارير المرضى.',
-    authDemoNote: 'تبدأ الواجهة من تسجيل الدخول. هذا نظام تجريبي محلي للعرض، ويمكن ربطه لاحقًا بحسابات حقيقية في الباكيند.',
+    doctorPortalSubtitle: 'مساحة عمل سريرية منظمة لتحليل صور الأشعة ودمج التحاليل ومراجعة سياق المريض.',
+    authAccessNote: 'يرجى تسجيل الدخول بحساب الطبيب للوصول إلى مساحة العمل الطبية.',
     loginTab: 'تسجيل الدخول', registerTab: 'إنشاء حساب',
     loginTitle: 'تسجيل دخول الطبيب', registerTitle: 'إنشاء حساب طبيب',
     doctorName: 'اسم الطبيب', doctorEmail: 'البريد الإلكتروني', doctorPassword: 'كلمة المرور', doctorPasswordConfirm: 'تأكيد كلمة المرور',
     loginButton: 'دخول', registerButton: 'إنشاء الحساب', logout: 'تسجيل الخروج',
     loggedInAs: 'تم الدخول باسم', accountCreated: 'تم إنشاء الحساب وتسجيل الدخول بنجاح.', loginSuccess: 'تم تسجيل الدخول بنجاح.',
     invalidCredentials: 'البريد الإلكتروني أو كلمة المرور غير صحيحة.', passwordsDoNotMatch: 'كلمتا المرور غير متطابقتين.', accountExists: 'يوجد حساب مسجل بهذا البريد الإلكتروني.', weakPassword: 'يجب أن تكون كلمة المرور 6 أحرف على الأقل.',
+    themeDark: 'الوضع الليلي', themeLight: 'الوضع النهاري', showPassword: 'إظهار', hidePassword: 'إخفاء',
     workspaceReady: 'جاهز لبدء سير العمل',
     noActivePatient: 'لا يوجد مريض نشط',
     patientBadge: 'المريض',
@@ -55,14 +56,15 @@ const I18N = {
     heroKicker: 'Clinical decision support workspace',
     heroSubtitle: 'Chest X-ray analysis, optional lab merging, and a patient-context medical assistant.',
     doctorPortalTitle: 'Doctor portal',
-    doctorPortalSubtitle: 'Sign in to access the medical case analysis workspace and patient reports.',
-    authDemoNote: 'The site starts from sign-in. This is a local demo login for presentation and can later be connected to real backend authentication.',
+    doctorPortalSubtitle: 'A structured clinical workspace for X-ray analysis, lab merging, and patient-context review.',
+    authAccessNote: 'Sign in with a doctor account to access the clinical workspace.',
     loginTab: 'Sign in', registerTab: 'Create account',
     loginTitle: 'Doctor sign in', registerTitle: 'Create doctor account',
     doctorName: 'Doctor name', doctorEmail: 'Email', doctorPassword: 'Password', doctorPasswordConfirm: 'Confirm password',
     loginButton: 'Sign in', registerButton: 'Create account', logout: 'Sign out',
     loggedInAs: 'Signed in as', accountCreated: 'Account created and signed in successfully.', loginSuccess: 'Signed in successfully.',
     invalidCredentials: 'Incorrect email or password.', passwordsDoNotMatch: 'Passwords do not match.', accountExists: 'An account already exists with this email.', weakPassword: 'Password must be at least 6 characters.',
+    themeDark: 'Dark mode', themeLight: 'Light mode', showPassword: 'Show', hidePassword: 'Hide',
     workspaceReady: 'Ready to start the workflow',
     noActivePatient: 'No active patient',
     patientBadge: 'Patient',
@@ -109,6 +111,7 @@ const I18N = {
 const state = {
   apiBase: localStorage.getItem('ai_doctor_api_base') || 'https://ai-doctor-helper.onrender.com/api',
   lang: localStorage.getItem('ai_doctor_lang') || 'ar',
+  theme: localStorage.getItem('ai_doctor_theme') || 'light',
   patientId: '',
   latestReportUrl: '',
   chatReady: false,
@@ -775,6 +778,60 @@ function bindClick(id, handler, statusId) {
 }
 
 
+
+function applyTheme(theme) {
+  state.theme = theme === 'dark' ? 'dark' : 'light';
+  localStorage.setItem('ai_doctor_theme', state.theme);
+  document.documentElement.dataset.theme = state.theme;
+  updateThemeButtons();
+}
+
+function toggleTheme() {
+  applyTheme(state.theme === 'dark' ? 'light' : 'dark');
+}
+
+function updateThemeButtons() {
+  const label = state.theme === 'dark' ? t('themeLight') : t('themeDark');
+  ['themeToggleBtn', 'authThemeToggleBtn'].forEach((id) => {
+    const button = $(id);
+    if (button) button.textContent = label;
+  });
+}
+
+function updatePasswordToggleLabels() {
+  document.querySelectorAll('[data-toggle-password]').forEach((button) => {
+    const target = $(button.dataset.togglePassword);
+    const isVisible = target?.type === 'text';
+    button.textContent = isVisible ? t('hidePassword') : t('showPassword');
+  });
+}
+
+function initializeDisplayControls() {
+  applyTheme(state.theme);
+  $('themeToggleBtn')?.addEventListener('click', toggleTheme);
+  $('authThemeToggleBtn')?.addEventListener('click', toggleTheme);
+  $('authArBtn')?.addEventListener('click', () => setLanguage('ar'));
+  $('authEnBtn')?.addEventListener('click', () => setLanguage('en'));
+
+  document.querySelectorAll('[data-toggle-password]').forEach((button) => {
+    button.addEventListener('click', () => {
+      const input = $(button.dataset.togglePassword);
+      if (!input) return;
+      input.type = input.type === 'password' ? 'text' : 'password';
+      updatePasswordToggleLabels();
+      input.focus();
+    });
+  });
+
+  const scrollButton = $('scrollTopBtn');
+  if (scrollButton) {
+    const updateScrollButton = () => scrollButton.classList.toggle('is-visible', window.scrollY > 420);
+    window.addEventListener('scroll', updateScrollButton, { passive: true });
+    scrollButton.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+    updateScrollButton();
+  }
+}
+
 const AUTH_ACCOUNTS_KEY = 'ai_doctor_doctor_accounts_v1';
 const AUTH_SESSION_KEY = 'ai_doctor_current_doctor_session_v2';
 
@@ -925,6 +982,7 @@ function initializeAuth() {
 
 
 function initializeFrontend() {
+  initializeDisplayControls();
   setLanguage(state.lang);
   initializeAuth();
   renderSeverityLegend();
