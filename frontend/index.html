@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AI Doctor Helper</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="hero">
+    <div class="hero__brand">
+      <div class="logo-mark logo-mark--image" aria-hidden="true">
+		  <img src="logo.png" alt="Doctor AI logo" />
+	  </div>
+        <h2>Spark AI Doctor Helper</h2>
+        <p class="hero__subtitle" data-i18n="heroSubtitle">تحليل الصدر، دمج التحاليل، ومحادثة طبية مبنية على معلومات المريض.</p>
+      </div>
+    </div>
+
+    <div class="hero__side">
+      <div class="language-toggle" aria-label="Language switch">
+        <button id="langArBtn" class="lang-btn is-active" type="button"> العربية</button>
+        <button id="langEnBtn" class="lang-btn" type="button">English</button>
+      </div>
+
+      <div class="system-card">
+        <div class="system-card__row">
+          <span class="dot dot--ready"></span>
+          <span id="workspaceState" data-i18n="workspaceReady">جاهز لبدء سير العمل</span>
+        </div>
+        <div class="system-card__meta">
+          <span id="activePatientBadge">لا يوجد مريض نشط</span>
+          <span id="chatReadyBadge">المحادثة غير مفعلة</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="page-shell">
+    <section class="workflow-strip" aria-label="Workflow status">
+      <div class="workflow-step is-active" id="stepPatient">
+        <span>1</span>
+        <div><strong data-i18n="stepPatientTitle">المريض</strong><small data-i18n="stepPatientSub">إنشاء أو تحميل ملف المريض</small></div>
+      </div>
+      <div class="workflow-step" id="stepXray">
+        <span>2</span>
+        <div><strong data-i18n="stepXrayTitle">الأشعة</strong><small data-i18n="stepXraySub">رفع وتحليل الصورة</small></div>
+      </div>
+      <div class="workflow-step" id="stepLab">
+        <span>3</span>
+        <div><strong data-i18n="stepLabTitle">التحاليل</strong><small data-i18n="stepLabSub">دمج اختياري</small></div>
+      </div>
+      <div class="workflow-step" id="stepChat">
+        <span>4</span>
+        <div><strong data-i18n="stepChatTitle">المساعد</strong><small data-i18n="stepChatSub">أسئلة مبنية على السياق</small></div>
+      </div>
+    </section>
+
+    <section class="dashboard-grid">
+      <article class="panel patient-panel">
+        <div class="panel__header">
+          <div>
+            <p class="section-kicker" data-i18n="patientKicker">بيانات المريض</p>
+            <h2 data-i18n="patientTitle">1. المريض</h2>
+          </div>
+          <span class="mini-badge" data-i18n="required">مطلوب</span>
+        </div>
+
+        <div class="grid two">
+          <label><span data-i18n="patientName">اسم المريض</span><input id="patientName" data-i18n-placeholder="patientNamePlaceholder" /></label>
+          <label><span data-i18n="patientId">رقم المريض</span><input id="patientId" data-i18n-placeholder="patientIdPlaceholder" /></label>
+          <label><span data-i18n="age">العمر</span><input id="age" type="number" placeholder="52" /></label>
+          <label><span data-i18n="sex">الجنس</span>
+            <select id="sex">
+              <option value="" data-i18n="sexUnknown">غير محدد</option>
+              <option value="Female" data-i18n="sexFemale">أنثى</option>
+              <option value="Male" data-i18n="sexMale">ذكر</option>
+            </select>
+          </label>
+        </div>
+
+        <label><span data-i18n="phone">رقم الهاتف</span><input id="phone" placeholder="اختياري" data-i18n-placeholder="optional" /></label>
+        <label><span data-i18n="notes">ملاحظات سريرية</span><textarea id="notes" placeholder="الأعراض، القصة المرضية، الحرارة، السعال، تشبع الأكسجين، أمراض سابقة..." data-i18n-placeholder="notesPlaceholder"></textarea></label>
+
+        <div class="actions">
+          <button id="createPatientBtn" class="btn btn--primary" data-i18n="createPatient">إنشاء مريض</button>
+          <button id="loadPatientBtn" class="btn btn--secondary" data-i18n="useExisting">استخدام مريض موجود</button>
+        </div>
+        <div id="patientStatus" class="status"></div>
+      </article>
+
+      <article class="panel upload-panel">
+        <div class="panel__header">
+          <div>
+            <p class="section-kicker" data-i18n="xrayKicker">الخطوة الأساسية</p>
+            <h2 data-i18n="xrayTitle">2. تحليل صورة الأشعة</h2>
+          </div>
+          <span class="mini-badge mini-badge--blue" data-i18n="mainStep">خطوة رئيسية</span>
+        </div>
+
+        <label><span data-i18n="xrayImage">صورة أشعة الصدر</span><input id="xrayFile" type="file" accept="image/*" /></label>
+        <div class="image-preview" id="xrayPreview"><span data-i18n="noXrayPreview">لا توجد معاينة للأشعة بعد</span></div>
+
+        <div class="actions">
+          <button id="uploadXrayBtn" class="btn btn--secondary" data-i18n="uploadXray">رفع الأشعة</button>
+          <button id="analyzeXrayBtn" class="btn btn--primary" data-i18n="analyzeXray">تحليل الأشعة</button>
+        </div>
+        <div id="xrayStatus" class="status"></div>
+      </article>
+
+      <article class="panel upload-panel">
+        <div class="panel__header">
+          <div>
+            <p class="section-kicker" data-i18n="labKicker">بيانات داعمة اختيارية</p>
+            <h2 data-i18n="labTitle">3. تقرير التحاليل</h2>
+          </div>
+          <span class="mini-badge mini-badge--green" data-i18n="optionalStep">اختياري</span>
+        </div>
+
+        <p class="muted" data-i18n="labHint">يمكن إضافة صورة التحليل بعد تحليل الأشعة لتحديث التقرير وسياق المحادثة.</p>
+        <label><span data-i18n="labImage">صورة تقرير التحليل</span><input id="labFile" type="file" accept="image/*" /></label>
+        <div class="image-preview" id="labPreview"><span data-i18n="noLabPreview">لا توجد معاينة للتحليل بعد</span></div>
+
+        <div class="actions">
+          <button id="uploadLabBtn" class="btn btn--secondary" data-i18n="uploadLab">رفع التحليل</button>
+          <button id="analyzeLabBtn" class="btn btn--primary" data-i18n="analyzeLab">تحليل ودمج التحاليل</button>
+        </div>
+        <div id="labStatus" class="status"></div>
+      </article>
+    </section>
+
+    <section class="clinical-legend panel panel--compact" aria-label="Severity colors">
+      <div class="legend-title" data-i18n="legendTitle">دليل ألوان الإشعارات الطبية</div>
+      <div class="legend-items" id="severityLegend"></div>
+    </section>
+
+    <section class="results-grid" aria-label="Analysis results">
+      <article class="panel result-panel">
+        <div class="panel__header">
+          <div>
+            <p class="section-kicker" data-i18n="xrayResultKicker">نتيجة التصوير</p>
+            <h2 data-i18n="xrayResultTitle">تفسير صورة الأشعة</h2>
+            <h2 data-i18n="xrayResultTitle">تفسير صورة الأشعة</h2>
+          </div>
+          <span id="xrayResultBadge" class="state-pill state-pill--idle" data-i18n="notAnalyzed">لم يتم التحليل</span>
+        </div>
+        <div id="xrayResult" class="result-card empty-state" data-i18n="xrayEmpty">قم بتحليل صورة الأشعة لعرض الملخص المهم والإشعارات الطبية هنا.</div>
+      </article>
+
+      <article class="panel result-panel">
+        <div class="panel__header">
+          <div>
+            <p class="section-kicker" data-i18n="labResultKicker">نتيجة التحاليل</p>
+            <h2 data-i18n="labResultTitle">ملخص التحليل المخبري</h2>
+          </div>
+          <span id="labResultBadge" class="state-pill state-pill--idle" data-i18n="notAdded">لم تتم الإضافة</span>
+        </div>
+        <div id="labResult" class="result-card empty-state" data-i18n="labEmpty">بعد رفع التحليل ستظهر القيم المهمة فقط، دون عرض نص OCR الطويل.</div>
+      </article>
+
+      <article class="panel integrated-panel">
+        <div class="panel__header">
+          <div>
+            <p class="section-kicker" data-i18n="integratedKicker">الملخص السريري</p>
+            <h2 data-i18n="integratedTitle">السياق الطبي المتكامل</h2>
+          </div>
+          <button id="refreshReportsBtn" class="btn btn--ghost btn--small" data-i18n="refreshReports">تحديث التقارير</button>
+        </div>
+        <div id="integratedSummary" class="summary-box" data-i18n="integratedEmpty">لا يوجد ملخص متكامل بعد. أكمل تحليل الأشعة أولًا، ثم أضف التحاليل اختياريًا.</div>
+        <div id="reportActions" class="report-actions"></div>
+      </article>
+    </section>
+
+    <section class="panel chat-panel">
+      <div class="panel__header">
+        <div>
+          <h2 data-i18n="chatTitle">4. المساعد الطبي</h2>
+        </div>
+        <span id="chatSourceBadge" class="state-pill state-pill--idle" data-i18n="waitingContext">بانتظار السياق</span>
+      </div>
+
+      <div class="quick-prompts" aria-label="Quick questions">
+        <button class="quick-prompt" data-question-ar="أعطني الانطباع الأولي عن حالة هذا المريض في خمس نقاط مختصرة." data-question-en="Give me the initial impression for this patient in five concise bullet points." data-i18n="quickInitial">الانطباع الأولي</button>
+        <button class="quick-prompt" data-question-ar="لخص نتائج الأشعة والتحاليل مع الربط السريري بينهما." data-question-en="Summarize the X-ray and lab findings with clinical correlation." data-i18n="quickSummary">ملخص الأشعة والتحاليل</button>
+        <button class="quick-prompt" data-question-ar="ما الأمور التي يجب على الطبيب التحقق منها قبل اتخاذ القرار النهائي؟" data-question-en="What should the physician verify before the final decision?" data-i18n="quickChecks">الفحوصات التالية</button>
+        <button class="quick-prompt" data-question-ar=" اشرح الحالة بعد الملاحظة الدقيقة " data-question-en="Explain this case in simple teaching language for a medical student." data-i18n="quickTeaching">شرح تعليمي</button>
+      </div>
+
+      <div id="chatMessages" class="chat-messages">
+        <div class="message assistant message--welcome" data-i18n="chatWelcome">قم بتحليل صورة الأشعة أولًا، ثم اسأل عن سياق المريض المحفوظ. هذا المساعد للدعم التعليمي فقط وليس تشخيصًا نهائيًا.</div>
+      </div>
+      <div class="chat-input-row">
+        <input id="chatQuestion" placeholder="اسأل عن حالة المريض والسياق المحفوظ..." data-i18n-placeholder="chatPlaceholder" />
+        <button id="sendChatBtn" class="btn btn--primary" data-i18n="send">إرسال</button>
+      </div>
+      <div id="chatStatus" class="status"></div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
