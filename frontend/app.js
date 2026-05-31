@@ -3,8 +3,8 @@ const I18N = {
     heroKicker: 'منصة دعم القرار الطبي',
     heroSubtitle: 'تحليل أشعة الصدر، دمج التحاليل، ومحادثة طبية مبنية على سياق المريض.',
     doctorPortalTitle: 'بوابة الطبيب',
-    doctorPortalSubtitle: 'سجّل الدخول للوصول إلى مساحة تحليل الحالات الطبية وإدارة تقارير المرضى.',
-    authDemoNote: 'نظام تسجيل الدخول هنا مخصص لتنظيم العرض التجريبي على المتصفح الحالي. يمكن ربطه لاحقًا بنظام حسابات حقيقي في الباكيند.',
+    doctorPortalSubtitle: 'ابدأ بتسجيل الدخول للوصول إلى مساحة تحليل الحالات الطبية وإدارة تقارير المرضى.',
+    authDemoNote: 'تبدأ الواجهة من تسجيل الدخول. هذا نظام تجريبي محلي للعرض، ويمكن ربطه لاحقًا بحسابات حقيقية في الباكيند.',
     loginTab: 'تسجيل الدخول', registerTab: 'إنشاء حساب',
     loginTitle: 'تسجيل دخول الطبيب', registerTitle: 'إنشاء حساب طبيب',
     doctorName: 'اسم الطبيب', doctorEmail: 'البريد الإلكتروني', doctorPassword: 'كلمة المرور', doctorPasswordConfirm: 'تأكيد كلمة المرور',
@@ -21,9 +21,7 @@ const I18N = {
     stepLabTitle: 'التحاليل', stepLabSub: 'دمج اختياري',
     stepChatTitle: 'المساعد', stepChatSub: 'أسئلة مبنية على السياق',
     patientKicker: 'بيانات المريض', patientTitle: '1. المريض', required: 'مطلوب',
-    patientName: 'اسم المريض', patientId: 'رقم هاتف المريض', 
-    patientName: 'اسم المريض', patientId: 'رقم هاتف المريض', 
-    age: 'العمر', sex: 'الجنس', sexUnknown: 'غير محدد', sexFemale: 'أنثى', sexMale: 'ذكر', phone: 'رقم الهاتف', optional: 'اختياري', notes: 'ملاحظات سريرية',
+    patientName: 'اسم المريض', patientNamePlaceholder: 'مثال: سارة أحمد', patientId: 'معرّف المريض', patientIdPlaceholder: 'اكتب معرّف مريض موجود أو اتركه بعد الإنشاء', age: 'العمر', agePlaceholder: 'مثال: 45', sex: 'الجنس', sexUnknown: 'غير محدد', sexFemale: 'أنثى', sexMale: 'ذكر', phone: 'رقم الهاتف', optional: 'اختياري', notes: 'ملاحظات سريرية',
     notesPlaceholder: 'الأعراض، القصة المرضية، الحرارة، السعال، تشبع الأكسجين، أمراض سابقة...',
     createPatient: 'إنشاء مريض', useExisting: 'استخدام مريض موجود',
     xrayKicker: 'الخطوة الأساسية', xrayTitle: '2. تحليل صورة الأشعة', mainStep: 'خطوة رئيسية', xrayImage: 'صورة أشعة الصدر', noXrayPreview: 'لا توجد معاينة للأشعة بعد', uploadXray: 'رفع الأشعة', analyzeXray: 'تحليل الأشعة',
@@ -58,7 +56,7 @@ const I18N = {
     heroSubtitle: 'Chest X-ray analysis, optional lab merging, and a patient-context medical assistant.',
     doctorPortalTitle: 'Doctor portal',
     doctorPortalSubtitle: 'Sign in to access the medical case analysis workspace and patient reports.',
-    authDemoNote: 'This sign-in system is for organizing the demo on this browser. It can be connected later to real backend authentication.',
+    authDemoNote: 'The site starts from sign-in. This is a local demo login for presentation and can later be connected to real backend authentication.',
     loginTab: 'Sign in', registerTab: 'Create account',
     loginTitle: 'Doctor sign in', registerTitle: 'Create doctor account',
     doctorName: 'Doctor name', doctorEmail: 'Email', doctorPassword: 'Password', doctorPasswordConfirm: 'Confirm password',
@@ -75,7 +73,7 @@ const I18N = {
     stepLabTitle: 'Lab', stepLabSub: 'Optional merge',
     stepChatTitle: 'Assistant', stepChatSub: 'Context-based questions',
     patientKicker: 'Patient data', patientTitle: '1. Patient', required: 'Required',
-    patientName: 'Patient name', patientNamePlaceholder: 'Example: Sana', patientId: 'Patient ID', patientIdPlaceholder: 'Use existing ID or create a new patient',
+    patientName: 'Patient name', patientNamePlaceholder: 'Example: Sara Ahmed', patientId: 'Patient ID', patientIdPlaceholder: 'Use an existing ID or create a new patient', agePlaceholder: 'Example: 45',
     age: 'Age', sex: 'Sex', sexUnknown: 'Unknown', sexFemale: 'Female', sexMale: 'Male', phone: 'Phone', optional: 'Optional', notes: 'Clinical notes',
     notesPlaceholder: 'Symptoms, history, fever, cough, oxygen saturation, comorbidities...',
     createPatient: 'Create Patient', useExisting: 'Use Existing Patient',
@@ -109,7 +107,7 @@ const I18N = {
 };
 
 const state = {
-  apiBase: localStorage.getItem('ai_doctor_api_base') || 'http://127.0.0.1:8000/api',
+  apiBase: localStorage.getItem('ai_doctor_api_base') || 'https://ai-doctor-helper.onrender.com/api',
   lang: localStorage.getItem('ai_doctor_lang') || 'ar',
   patientId: '',
   latestReportUrl: '',
@@ -573,7 +571,7 @@ async function createPatient() {
     patient_name: $('patientName').value.trim(),
     age: $('age').value ? Number($('age').value) : null,
     sex: $('sex').value || null,
-    phone: $('phone') ? $('phone').value.trim() || null : null,
+    phone: null,
     symptoms_or_notes: $('notes').value.trim() || null,
   };
   if (!body.patient_name) throw new Error(t('patientNameRequired'));
@@ -596,7 +594,7 @@ async function useExistingPatient() {
   $('patientName').value = patient.patient_name || '';
   $('age').value = patient.age ?? '';
   $('sex').value = patient.sex || '';
-  if ($('phone')) $('phone').value = patient.phone || '';
+
   $('notes').value = patient.symptoms_or_notes || '';
   setWorkflowStep('stepPatient', 'done');
   setWorkflowStep('stepXray', 'active');
@@ -778,7 +776,7 @@ function bindClick(id, handler, statusId) {
 
 
 const AUTH_ACCOUNTS_KEY = 'ai_doctor_doctor_accounts_v1';
-const AUTH_SESSION_KEY = 'ai_doctor_current_doctor_v1';
+const AUTH_SESSION_KEY = 'ai_doctor_current_doctor_session_v2';
 
 function getDoctorAccounts() {
   try {
@@ -810,7 +808,7 @@ async function hashPassword(password) {
 
 function getCurrentDoctor() {
   try {
-    const raw = localStorage.getItem(AUTH_SESSION_KEY);
+    const raw = sessionStorage.getItem(AUTH_SESSION_KEY);
     return raw ? JSON.parse(raw) : null;
   } catch {
     return null;
@@ -883,7 +881,7 @@ async function registerDoctor(event) {
 
   accounts.push(account);
   saveDoctorAccounts(accounts);
-  localStorage.setItem(AUTH_SESSION_KEY, JSON.stringify({ id: account.id, name: account.name, email: account.email }));
+  sessionStorage.setItem(AUTH_SESSION_KEY, JSON.stringify({ id: account.id, name: account.name, email: account.email }));
   setAuthStatus(t('accountCreated'), 'success');
   updateAuthVisibility();
 }
@@ -900,13 +898,14 @@ async function loginDoctor(event) {
     return;
   }
 
-  localStorage.setItem(AUTH_SESSION_KEY, JSON.stringify({ id: account.id, name: account.name, email: account.email }));
+  sessionStorage.setItem(AUTH_SESSION_KEY, JSON.stringify({ id: account.id, name: account.name, email: account.email }));
   setAuthStatus(t('loginSuccess'), 'success');
   updateAuthVisibility();
 }
 
 function logoutDoctor() {
-  localStorage.removeItem(AUTH_SESSION_KEY);
+  sessionStorage.removeItem(AUTH_SESSION_KEY);
+  localStorage.removeItem('ai_doctor_current_doctor_v1');
   state.patientId = '';
   state.latestReportUrl = '';
   state.chatReady = false;

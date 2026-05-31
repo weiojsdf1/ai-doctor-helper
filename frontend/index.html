@@ -4,8 +4,10 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>AI Doctor Helper</title>
-  <link rel="icon" type="image/png" href="logo.png" />
-  <link rel="apple-touch-icon" href="logo.png" />
+  <link rel="icon" href="favicon.ico?v=4" sizes="any" />
+  <link rel="shortcut icon" href="favicon.ico?v=4" />
+  <link rel="icon" type="image/png" href="logo.png?v=4" />
+  <link rel="apple-touch-icon" href="logo.png?v=4" />
   <link rel="stylesheet" href="styles.css" />
 
   <style>
@@ -139,6 +141,46 @@
       .auth-brand { padding: 26px; }
       .auth-form-panel { padding: 26px; }
     }
+
+
+    .patient-form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+      align-items: start;
+    }
+    .patient-form-grid label {
+      margin: 0;
+    }
+    .patient-form-grid .field--full {
+      grid-column: 1 / -1;
+    }
+    .patient-form-grid textarea {
+      min-height: 118px;
+      resize: vertical;
+    }
+    .auth-form .form-row {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+    .auth-form .field--full {
+      grid-column: 1 / -1;
+    }
+    .auth-card {
+      min-height: 560px;
+    }
+    @media (max-width: 720px) {
+      .patient-form-grid,
+      .auth-form .form-row {
+        grid-template-columns: 1fr;
+      }
+      .patient-form-grid .field--full,
+      .auth-form .field--full {
+        grid-column: auto;
+      }
+    }
+
   </style>
 
 </head>
@@ -152,7 +194,7 @@
             <img src="logo.png" alt="Doctor AI logo" />
           </div>
           <h1 data-i18n="doctorPortalTitle">بوابة الطبيب</h1>
-          <p data-i18n="doctorPortalSubtitle">سجّل الدخول للوصول إلى مساحة تحليل الحالات الطبية وإدارة تقارير المرضى.</p>
+          <p data-i18n="doctorPortalSubtitle">ابدأ بتسجيل الدخول للوصول إلى مساحة تحليل الحالات الطبية وإدارة تقارير المرضى.</p>
         </div>
         <div class="auth-note" data-i18n="authDemoNote">
           نظام تسجيل الدخول هنا مخصص لتنظيم العرض التجريبي على المتصفح الحالي. يمكن ربطه لاحقًا بنظام حسابات حقيقي في الباكيند.
@@ -167,11 +209,11 @@
 
         <form id="loginForm" class="auth-form">
           <h2 data-i18n="loginTitle">تسجيل دخول الطبيب</h2>
-          <label>
+          <label class="field--full">
             <span data-i18n="doctorEmail">البريد الإلكتروني</span>
             <input id="loginEmail" type="email" autocomplete="email" required />
           </label>
-          <label>
+          <label class="field--full">
             <span data-i18n="doctorPassword">كلمة المرور</span>
             <input id="loginPassword" type="password" autocomplete="current-password" required />
           </label>
@@ -180,22 +222,26 @@
 
         <form id="registerForm" class="auth-form is-hidden">
           <h2 data-i18n="registerTitle">إنشاء حساب طبيب</h2>
-          <label>
-            <span data-i18n="doctorName">اسم الطبيب</span>
-            <input id="registerName" type="text" autocomplete="name" required />
-          </label>
-          <label>
-            <span data-i18n="doctorEmail">البريد الإلكتروني</span>
-            <input id="registerEmail" type="email" autocomplete="email" required />
-          </label>
-          <label>
-            <span data-i18n="doctorPassword">كلمة المرور</span>
-            <input id="registerPassword" type="password" autocomplete="new-password" minlength="6" required />
-          </label>
-          <label>
-            <span data-i18n="doctorPasswordConfirm">تأكيد كلمة المرور</span>
-            <input id="registerPasswordConfirm" type="password" autocomplete="new-password" minlength="6" required />
-          </label>
+          <div class="form-row">
+            <label>
+              <span data-i18n="doctorName">اسم الطبيب</span>
+              <input id="registerName" type="text" autocomplete="name" required />
+            </label>
+            <label>
+              <span data-i18n="doctorEmail">البريد الإلكتروني</span>
+              <input id="registerEmail" type="email" autocomplete="email" required />
+            </label>
+          </div>
+          <div class="form-row">
+            <label>
+              <span data-i18n="doctorPassword">كلمة المرور</span>
+              <input id="registerPassword" type="password" autocomplete="new-password" minlength="6" required />
+            </label>
+            <label>
+              <span data-i18n="doctorPasswordConfirm">تأكيد كلمة المرور</span>
+              <input id="registerPasswordConfirm" type="password" autocomplete="new-password" minlength="6" required />
+            </label>
+          </div>
           <button class="btn btn--primary" type="submit" data-i18n="registerButton">إنشاء الحساب</button>
         </form>
 
@@ -265,18 +311,31 @@
           <span class="mini-badge" data-i18n="required">مطلوب</span>
         </div>
 
-        <div class="grid two">
-          <label><span data-i18n="patientName">اسم المريض</span><input id="patientName" data-i18n-placeholder="patientNamePlaceholder" /></label>
-          <label><span data-i18n="patientId">معرّف المريض</span><input id="patientId" data-i18n-placeholder="patientIdPlaceholder" /></label>
-          <label><span data-i18n="age">العمر</span><input id="age" type="number"  /></label>
-          <label><span data-i18n="sex">الجنس</span>
+        <div class="patient-form-grid">
+          <label>
+            <span data-i18n="patientName">اسم المريض</span>
+            <input id="patientName" data-i18n-placeholder="patientNamePlaceholder" />
+          </label>
+          <label>
+            <span data-i18n="patientId">معرّف المريض</span>
+            <input id="patientId" data-i18n-placeholder="patientIdPlaceholder" />
+          </label>
+          <label>
+            <span data-i18n="age">العمر</span>
+            <input id="age" type="number" min="0" max="130" data-i18n-placeholder="agePlaceholder" />
+          </label>
+          <label>
+            <span data-i18n="sex">الجنس</span>
             <select id="sex">
               <option value="Female" data-i18n="sexFemale">أنثى</option>
               <option value="Male" data-i18n="sexMale">ذكر</option>
             </select>
           </label>
+          <label class="field--full">
+            <span data-i18n="notes">ملاحظات سريرية</span>
+            <textarea id="notes" data-i18n-placeholder="notesPlaceholder" placeholder="الأعراض، القصة المرضية، الحرارة، السعال، تشبع الأكسجين، أمراض سابقة..."></textarea>
+          </label>
         </div>
-        <label><span data-i18n="notes">ملاحظات سريرية</span><textarea id="notes" placeholder="الأعراض، القصة المرضية، الحرارة، السعال، تشبع الأكسجين، أمراض سابقة..." data-i18n-placeholder="notesPlaceholder"></textarea></label>
 
         <div class="actions">
           <button id="createPatientBtn" class="btn btn--primary" data-i18n="createPatient">إنشاء مريض</button>
