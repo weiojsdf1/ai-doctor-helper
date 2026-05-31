@@ -4,10 +4,11 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>AI Doctor Helper</title>
-  <link rel="icon" href="favicon.ico?v=10" sizes="any" />
-  <link rel="shortcut icon" href="favicon.ico?v=10" />
-  <link rel="icon" type="image/png" href="favicon.png?v=10" />
-  <link rel="apple-touch-icon" href="favicon.png?v=10" />
+  <link rel="icon" href="favicon.ico?v=30" sizes="any" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg?v=30" />
+  <link rel="shortcut icon" href="favicon.ico?v=30" />
+  <link rel="icon" type="image/png" href="favicon.png?v=30" />
+  <link rel="apple-touch-icon" href="favicon.png?v=30" />
   <link rel="stylesheet" href="styles.css" />
 
   <style>
@@ -311,6 +312,14 @@
       }
     }
 
+
+    #authScreen { direction: ltr; }
+    #authScreen .auth-form-panel,
+    #authScreen .auth-form,
+    #authScreen .auth-brand { text-align: left; }
+    #authScreen .auth-note { width: fit-content; }
+    #authScreen .auth-topbar { inset-inline-end: 18px; inset-inline-start: auto; }
+
   </style>
 
 </head>
@@ -318,9 +327,7 @@
 
   <section id="authScreen" class="auth-screen" aria-label="Doctor authentication">
     <div class="auth-topbar" aria-label="Display preferences">
-      <button id="authArBtn" class="lang-btn is-active" type="button">العربية</button>
-      <button id="authEnBtn" class="lang-btn" type="button">English</button>
-      <button id="authThemeToggleBtn" class="theme-toggle-btn" type="button" data-i18n="themeDark">الوضع الليلي</button>
+      <button id="authThemeToggleBtn" class="theme-toggle-btn" type="button">Dark mode</button>
     </div>
     <div class="auth-card">
       <div class="auth-brand">
@@ -328,65 +335,63 @@
           <div class="auth-brand__logo" aria-hidden="true">
             <img src="logo.png" alt="Doctor AI logo" />
           </div>
-          <h1 data-i18n="doctorPortalTitle">بوابة الطبيب</h1>
-          <p data-i18n="doctorPortalSubtitle">ابدأ بتسجيل الدخول للوصول إلى مساحة تحليل الحالات الطبية وإدارة تقارير المرضى.</p>
+          <h1>Doctor Portal</h1>
+          <p>Secure access to the clinical workspace for patient imaging, lab correlation, and case review.</p>
         </div>
-        <div class="auth-note" data-i18n="authAccessNote">
-          يرجى تسجيل الدخول بحساب الطبيب للوصول إلى مساحة العمل الطبية.
-        </div>
+        <div class="auth-note">Clinical workspace access</div>
       </div>
 
       <div class="auth-form-panel">
         <div class="auth-tabs">
-          <button id="loginTabBtn" class="auth-tab is-active" type="button" data-i18n="loginTab">تسجيل الدخول</button>
-          <button id="registerTabBtn" class="auth-tab" type="button" data-i18n="registerTab">إنشاء حساب</button>
+          <button id="loginTabBtn" class="auth-tab is-active" type="button">Sign in</button>
+          <button id="registerTabBtn" class="auth-tab" type="button">Create account</button>
         </div>
 
         <form id="loginForm" class="auth-form">
-          <h2 data-i18n="loginTitle">تسجيل دخول الطبيب</h2>
+          <h2>Doctor sign in</h2>
           <label class="field--full">
-            <span data-i18n="doctorEmail">البريد الإلكتروني</span>
+            <span>Email address</span>
             <input id="loginEmail" type="email" autocomplete="email" required />
           </label>
           <label class="field--full">
-            <span data-i18n="doctorPassword">كلمة المرور</span>
+            <span>Password</span>
             <div class="password-field">
               <input id="loginPassword" type="password" autocomplete="current-password" required />
-              <button class="password-toggle" type="button" data-toggle-password="loginPassword" data-i18n="showPassword">إظهار</button>
+              <button class="password-toggle" type="button" data-toggle-password="loginPassword">Show</button>
             </div>
           </label>
-          <button class="btn btn--primary" type="submit" data-i18n="loginButton">دخول</button>
+          <button class="btn btn--primary" type="submit">Sign in</button>
         </form>
 
         <form id="registerForm" class="auth-form is-hidden">
-          <h2 data-i18n="registerTitle">إنشاء حساب طبيب</h2>
+          <h2>Create doctor account</h2>
           <div class="form-row">
             <label>
-              <span data-i18n="doctorName">اسم الطبيب</span>
+              <span>Doctor name</span>
               <input id="registerName" type="text" autocomplete="name" required />
             </label>
             <label>
-              <span data-i18n="doctorEmail">البريد الإلكتروني</span>
+              <span>Email address</span>
               <input id="registerEmail" type="email" autocomplete="email" required />
             </label>
           </div>
           <div class="form-row">
             <label>
-              <span data-i18n="doctorPassword">كلمة المرور</span>
+              <span>Password</span>
               <div class="password-field">
                 <input id="registerPassword" type="password" autocomplete="new-password" minlength="6" required />
-                <button class="password-toggle" type="button" data-toggle-password="registerPassword" data-i18n="showPassword">إظهار</button>
+                <button class="password-toggle" type="button" data-toggle-password="registerPassword">Show</button>
               </div>
             </label>
             <label>
-              <span data-i18n="doctorPasswordConfirm">تأكيد كلمة المرور</span>
+              <span>Confirm password</span>
               <div class="password-field">
                 <input id="registerPasswordConfirm" type="password" autocomplete="new-password" minlength="6" required />
-                <button class="password-toggle" type="button" data-toggle-password="registerPasswordConfirm" data-i18n="showPassword">إظهار</button>
+                <button class="password-toggle" type="button" data-toggle-password="registerPasswordConfirm">Show</button>
               </div>
             </label>
           </div>
-          <button class="btn btn--primary" type="submit" data-i18n="registerButton">إنشاء الحساب</button>
+          <button class="btn btn--primary" type="submit">Create account</button>
         </form>
 
         <div id="authStatus" class="auth-status" aria-live="polite"></div>

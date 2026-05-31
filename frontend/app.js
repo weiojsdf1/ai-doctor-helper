@@ -122,6 +122,20 @@ const state = {
 const $ = (id) => document.getElementById(id);
 const t = (key) => (I18N[state.lang] && I18N[state.lang][key]) || I18N.ar[key] || key;
 
+const AUTH_TEXT = {
+  accountCreated: 'Account created successfully. You are now signed in.',
+  loginSuccess: 'Signed in successfully.',
+  invalidCredentials: 'Incorrect email or password.',
+  passwordsDoNotMatch: 'Passwords do not match.',
+  accountExists: 'An account already exists with this email.',
+  weakPassword: 'Password must be at least 6 characters.',
+  showPassword: 'Show',
+  hidePassword: 'Hide',
+  themeDark: 'Dark mode',
+  themeLight: 'Light mode',
+};
+const authT = (key) => AUTH_TEXT[key] || key;
+
 function escapeHtml(value) {
   return String(value ?? '')
     .replaceAll('&', '&amp;')
@@ -177,10 +191,12 @@ function setLanguage(lang) {
   document.documentElement.dir = state.lang === 'ar' ? 'rtl' : 'ltr';
 
   document.querySelectorAll('[data-i18n]').forEach((el) => {
+    if (el.closest('#authScreen')) return;
     const key = el.dataset.i18n;
     if (key && I18N[state.lang][key]) el.textContent = t(key);
   });
   document.querySelectorAll('[data-i18n-placeholder]').forEach((el) => {
+    if (el.closest('#authScreen')) return;
     const key = el.dataset.i18nPlaceholder;
     if (key && I18N[state.lang][key]) el.placeholder = t(key);
   });
@@ -791,18 +807,22 @@ function toggleTheme() {
 }
 
 function updateThemeButtons() {
-  const label = state.theme === 'dark' ? t('themeLight') : t('themeDark');
-  ['themeToggleBtn', 'authThemeToggleBtn'].forEach((id) => {
-    const button = $(id);
-    if (button) button.textContent = label;
-  });
+  const appLabel = state.theme === 'dark' ? t('themeLight') : t('themeDark');
+  const authLabel = state.theme === 'dark' ? authT('themeLight') : authT('themeDark');
+  const appButton = $('themeToggleBtn');
+  const authButton = $('authThemeToggleBtn');
+  if (appButton) appButton.textContent = appLabel;
+  if (authButton) authButton.textContent = authLabel;
 }
 
 function updatePasswordToggleLabels() {
   document.querySelectorAll('[data-toggle-password]').forEach((button) => {
     const target = $(button.dataset.togglePassword);
     const isVisible = target?.type === 'text';
-    button.textContent = isVisible ? t('hidePassword') : t('showPassword');
+    const useAuthEnglish = Boolean(button.closest('#authScreen'));
+    button.textContent = isVisible
+      ? (useAuthEnglish ? authT('hidePassword') : t('hidePassword'))
+      : (useAuthEnglish ? authT('showPassword') : t('showPassword'));
   });
 }
 
@@ -810,8 +830,6 @@ function initializeDisplayControls() {
   applyTheme(state.theme);
   $('themeToggleBtn')?.addEventListener('click', toggleTheme);
   $('authThemeToggleBtn')?.addEventListener('click', toggleTheme);
-  $('authArBtn')?.addEventListener('click', () => setLanguage('ar'));
-  $('authEnBtn')?.addEventListener('click', () => setLanguage('en'));
 
   document.querySelectorAll('[data-toggle-password]').forEach((button) => {
     button.addEventListener('click', () => {
@@ -913,17 +931,17 @@ async function registerDoctor(event) {
   const confirm = $('registerPasswordConfirm')?.value || '';
 
   if (password.length < 6) {
-    setAuthStatus(t('weakPassword'), 'error');
+    setAuthStatus(authT('weakPassword'), 'error');
     return;
   }
   if (password !== confirm) {
-    setAuthStatus(t('passwordsDoNotMatch'), 'error');
+    setAuthStatus(authT('passwordsDoNotMatch'), 'error');
     return;
   }
 
   const accounts = getDoctorAccounts();
   if (accounts.some((account) => account.email === email)) {
-    setAuthStatus(t('accountExists'), 'error');
+    setAuthStatus(authT('accountExists'), 'error');
     return;
   }
 
@@ -939,7 +957,7 @@ async function registerDoctor(event) {
   accounts.push(account);
   saveDoctorAccounts(accounts);
   sessionStorage.setItem(AUTH_SESSION_KEY, JSON.stringify({ id: account.id, name: account.name, email: account.email }));
-  setAuthStatus(t('accountCreated'), 'success');
+  setAuthStatus(authT('accountCreated'), 'success');
   updateAuthVisibility();
 }
 
@@ -951,12 +969,12 @@ async function loginDoctor(event) {
   const account = getDoctorAccounts().find((item) => item.email === email && item.password_hash === password_hash);
 
   if (!account) {
-    setAuthStatus(t('invalidCredentials'), 'error');
+    setAuthStatus(authT('invalidCredentials'), 'error');
     return;
   }
 
   sessionStorage.setItem(AUTH_SESSION_KEY, JSON.stringify({ id: account.id, name: account.name, email: account.email }));
-  setAuthStatus(t('loginSuccess'), 'success');
+  setAuthStatus(authT('loginSuccess'), 'success');
   updateAuthVisibility();
 }
 
