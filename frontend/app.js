@@ -91,8 +91,7 @@ const I18N = {
 };
 
 const state = {
-  apiBase: localStorage.getItem('ai_doctor_api_base') || 'http://127.0.0.1:8000/api',
-  lang: localStorage.getItem('ai_doctor_lang') || 'ar',
+  apiBase: localStorage.getItem('ai_doctor_api_base') || 'https://ai-doctor-helper.onrender.com/api',  lang: localStorage.getItem('ai_doctor_lang') || 'ar',
   patientId: '',
   latestReportUrl: '',
   chatReady: false,
