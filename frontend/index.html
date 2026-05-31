@@ -4,10 +4,207 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>AI Doctor Helper</title>
+  <link rel="icon" type="image/png" href="logo.png" />
+  <link rel="apple-touch-icon" href="logo.png" />
   <link rel="stylesheet" href="styles.css" />
+
+  <style>
+    .is-hidden { display: none !important; }
+    .auth-screen {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 32px 16px;
+      background:
+        radial-gradient(circle at top left, rgba(32, 154, 199, 0.20), transparent 34%),
+        radial-gradient(circle at bottom right, rgba(31, 184, 131, 0.18), transparent 32%),
+        linear-gradient(135deg, #eef7fb 0%, #f7fbfd 48%, #eefaf6 100%);
+    }
+    .auth-card {
+      width: min(960px, 100%);
+      display: grid;
+      grid-template-columns: 0.95fr 1.05fr;
+      overflow: hidden;
+      border-radius: 30px;
+      background: rgba(255, 255, 255, 0.92);
+      border: 1px solid rgba(11, 73, 101, 0.12);
+      box-shadow: 0 24px 80px rgba(10, 58, 84, 0.16);
+      backdrop-filter: blur(14px);
+    }
+    .auth-brand {
+      padding: 34px;
+      background: linear-gradient(145deg, #0f6d8e 0%, #0f9f86 100%);
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 28px;
+    }
+    .auth-brand__logo {
+      width: 86px;
+      height: 86px;
+      border-radius: 26px;
+      overflow: hidden;
+      background: rgba(255,255,255,0.94);
+      box-shadow: 0 18px 42px rgba(0,0,0,0.16);
+      display: grid;
+      place-items: center;
+    }
+    .auth-brand__logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 34%;
+      transform: scale(1.65);
+      transform-origin: center 34%;
+      display: block;
+    }
+    .auth-brand h1 {
+      margin: 18px 0 10px;
+      font-size: clamp(28px, 3vw, 42px);
+      line-height: 1.08;
+      letter-spacing: -0.04em;
+    }
+    .auth-brand p { margin: 0; color: rgba(255,255,255,0.84); line-height: 1.8; }
+    .auth-note {
+      padding: 14px 16px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.18);
+      font-size: 0.92rem;
+    }
+    .auth-form-panel { padding: 34px; }
+    .auth-tabs {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      padding: 6px;
+      margin-bottom: 22px;
+      border-radius: 18px;
+      background: #eef6f8;
+    }
+    .auth-tab {
+      border: 0;
+      padding: 12px 14px;
+      border-radius: 14px;
+      cursor: pointer;
+      font-weight: 800;
+      color: #36616e;
+      background: transparent;
+    }
+    .auth-tab.is-active {
+      background: #fff;
+      color: #0f6d8e;
+      box-shadow: 0 8px 18px rgba(10, 58, 84, 0.10);
+    }
+    .auth-form { display: grid; gap: 14px; }
+    .auth-form h2 { margin: 0 0 6px; color: #123b4a; }
+    .auth-form label { display: grid; gap: 7px; color: #244b59; font-weight: 700; }
+    .auth-form input {
+      width: 100%;
+      border: 1px solid rgba(16, 90, 120, 0.18);
+      border-radius: 16px;
+      padding: 13px 14px;
+      outline: none;
+      background: #fff;
+      color: #102f3b;
+    }
+    .auth-form input:focus {
+      border-color: #0f9f86;
+      box-shadow: 0 0 0 4px rgba(15,159,134,0.12);
+    }
+    .auth-status {
+      min-height: 24px;
+      margin-top: 12px;
+      font-weight: 700;
+      color: #0f6d8e;
+    }
+    .auth-status.error { color: #b42318; }
+    .auth-status.success { color: #087443; }
+    .doctor-session {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-inline-start: 8px;
+      padding: 9px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.14);
+      color: inherit;
+      border: 1px solid rgba(255,255,255,0.18);
+      font-size: 0.9rem;
+      font-weight: 800;
+    }
+    @media (max-width: 780px) {
+      .auth-card { grid-template-columns: 1fr; }
+      .auth-brand { padding: 26px; }
+      .auth-form-panel { padding: 26px; }
+    }
+  </style>
+
 </head>
 <body>
-  <header class="hero">
+
+  <section id="authScreen" class="auth-screen" aria-label="Doctor authentication">
+    <div class="auth-card">
+      <div class="auth-brand">
+        <div>
+          <div class="auth-brand__logo" aria-hidden="true">
+            <img src="logo.png" alt="Doctor AI logo" />
+          </div>
+          <h1 data-i18n="doctorPortalTitle">بوابة الطبيب</h1>
+          <p data-i18n="doctorPortalSubtitle">سجّل الدخول للوصول إلى مساحة تحليل الحالات الطبية وإدارة تقارير المرضى.</p>
+        </div>
+        <div class="auth-note" data-i18n="authDemoNote">
+          نظام تسجيل الدخول هنا مخصص لتنظيم العرض التجريبي على المتصفح الحالي. يمكن ربطه لاحقًا بنظام حسابات حقيقي في الباكيند.
+        </div>
+      </div>
+
+      <div class="auth-form-panel">
+        <div class="auth-tabs">
+          <button id="loginTabBtn" class="auth-tab is-active" type="button" data-i18n="loginTab">تسجيل الدخول</button>
+          <button id="registerTabBtn" class="auth-tab" type="button" data-i18n="registerTab">إنشاء حساب</button>
+        </div>
+
+        <form id="loginForm" class="auth-form">
+          <h2 data-i18n="loginTitle">تسجيل دخول الطبيب</h2>
+          <label>
+            <span data-i18n="doctorEmail">البريد الإلكتروني</span>
+            <input id="loginEmail" type="email" autocomplete="email" required />
+          </label>
+          <label>
+            <span data-i18n="doctorPassword">كلمة المرور</span>
+            <input id="loginPassword" type="password" autocomplete="current-password" required />
+          </label>
+          <button class="btn btn--primary" type="submit" data-i18n="loginButton">دخول</button>
+        </form>
+
+        <form id="registerForm" class="auth-form is-hidden">
+          <h2 data-i18n="registerTitle">إنشاء حساب طبيب</h2>
+          <label>
+            <span data-i18n="doctorName">اسم الطبيب</span>
+            <input id="registerName" type="text" autocomplete="name" required />
+          </label>
+          <label>
+            <span data-i18n="doctorEmail">البريد الإلكتروني</span>
+            <input id="registerEmail" type="email" autocomplete="email" required />
+          </label>
+          <label>
+            <span data-i18n="doctorPassword">كلمة المرور</span>
+            <input id="registerPassword" type="password" autocomplete="new-password" minlength="6" required />
+          </label>
+          <label>
+            <span data-i18n="doctorPasswordConfirm">تأكيد كلمة المرور</span>
+            <input id="registerPasswordConfirm" type="password" autocomplete="new-password" minlength="6" required />
+          </label>
+          <button class="btn btn--primary" type="submit" data-i18n="registerButton">إنشاء الحساب</button>
+        </form>
+
+        <div id="authStatus" class="auth-status" aria-live="polite"></div>
+      </div>
+    </div>
+  </section>
+
+  <header class="hero app-protected is-hidden">
     <div class="hero__brand">
       <div class="logo-mark logo-mark--image" aria-hidden="true">
 		  <img src="logo.png" alt="Doctor AI logo" />
@@ -21,6 +218,8 @@
       <div class="language-toggle" aria-label="Language switch">
         <button id="langArBtn" class="lang-btn is-active" type="button"> العربية</button>
         <button id="langEnBtn" class="lang-btn" type="button">English</button>
+        <span id="doctorSessionBadge" class="doctor-session is-hidden"></span>
+        <button id="logoutBtn" class="lang-btn is-hidden" type="button" data-i18n="logout">تسجيل الخروج</button>
       </div>
 
       <div class="system-card">
@@ -36,7 +235,7 @@
     </div>
   </header>
 
-  <main class="page-shell">
+  <main class="page-shell app-protected is-hidden">
     <section class="workflow-strip" aria-label="Workflow status">
       <div class="workflow-step is-active" id="stepPatient">
         <span>1</span>
@@ -68,6 +267,7 @@
 
         <div class="grid two">
           <label><span data-i18n="patientName">اسم المريض</span><input id="patientName" data-i18n-placeholder="patientNamePlaceholder" /></label>
+          <label><span data-i18n="patientId">معرّف المريض</span><input id="patientId" data-i18n-placeholder="patientIdPlaceholder" /></label>
           <label><span data-i18n="age">العمر</span><input id="age" type="number"  /></label>
           <label><span data-i18n="sex">الجنس</span>
             <select id="sex">
@@ -76,8 +276,6 @@
             </select>
           </label>
         </div>
-
-        <label><span data-i18n="phone">رقم الهاتف</span><input id="phone" data-i18n-placeholder="optional" /></label>
         <label><span data-i18n="notes">ملاحظات سريرية</span><textarea id="notes" placeholder="الأعراض، القصة المرضية، الحرارة، السعال، تشبع الأكسجين، أمراض سابقة..." data-i18n-placeholder="notesPlaceholder"></textarea></label>
 
         <div class="actions">
@@ -137,7 +335,6 @@
         <div class="panel__header">
           <div>
             <p class="section-kicker" data-i18n="xrayResultKicker">نتيجة التصوير</p>
-            <h2 data-i18n="xrayResultTitle">تفسير صورة الأشعة</h2>
             <h2 data-i18n="xrayResultTitle">تفسير صورة الأشعة</h2>
           </div>
           <span id="xrayResultBadge" class="state-pill state-pill--idle" data-i18n="notAnalyzed">لم يتم التحليل</span>

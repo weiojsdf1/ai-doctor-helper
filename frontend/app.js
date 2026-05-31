@@ -2,6 +2,15 @@ const I18N = {
   ar: {
     heroKicker: 'منصة دعم القرار الطبي',
     heroSubtitle: 'تحليل أشعة الصدر، دمج التحاليل، ومحادثة طبية مبنية على سياق المريض.',
+    doctorPortalTitle: 'بوابة الطبيب',
+    doctorPortalSubtitle: 'سجّل الدخول للوصول إلى مساحة تحليل الحالات الطبية وإدارة تقارير المرضى.',
+    authDemoNote: 'نظام تسجيل الدخول هنا مخصص لتنظيم العرض التجريبي على المتصفح الحالي. يمكن ربطه لاحقًا بنظام حسابات حقيقي في الباكيند.',
+    loginTab: 'تسجيل الدخول', registerTab: 'إنشاء حساب',
+    loginTitle: 'تسجيل دخول الطبيب', registerTitle: 'إنشاء حساب طبيب',
+    doctorName: 'اسم الطبيب', doctorEmail: 'البريد الإلكتروني', doctorPassword: 'كلمة المرور', doctorPasswordConfirm: 'تأكيد كلمة المرور',
+    loginButton: 'دخول', registerButton: 'إنشاء الحساب', logout: 'تسجيل الخروج',
+    loggedInAs: 'تم الدخول باسم', accountCreated: 'تم إنشاء الحساب وتسجيل الدخول بنجاح.', loginSuccess: 'تم تسجيل الدخول بنجاح.',
+    invalidCredentials: 'البريد الإلكتروني أو كلمة المرور غير صحيحة.', passwordsDoNotMatch: 'كلمتا المرور غير متطابقتين.', accountExists: 'يوجد حساب مسجل بهذا البريد الإلكتروني.', weakPassword: 'يجب أن تكون كلمة المرور 6 أحرف على الأقل.',
     workspaceReady: 'جاهز لبدء سير العمل',
     noActivePatient: 'لا يوجد مريض نشط',
     patientBadge: 'المريض',
@@ -12,7 +21,8 @@ const I18N = {
     stepLabTitle: 'التحاليل', stepLabSub: 'دمج اختياري',
     stepChatTitle: 'المساعد', stepChatSub: 'أسئلة مبنية على السياق',
     patientKicker: 'بيانات المريض', patientTitle: '1. المريض', required: 'مطلوب',
-    patientName: 'اسم المريض',  
+    patientName: 'اسم المريض', patientId: 'رقم هاتف المريض', 
+    patientName: 'اسم المريض', patientId: 'رقم هاتف المريض', 
     age: 'العمر', sex: 'الجنس', sexUnknown: 'غير محدد', sexFemale: 'أنثى', sexMale: 'ذكر', phone: 'رقم الهاتف', optional: 'اختياري', notes: 'ملاحظات سريرية',
     notesPlaceholder: 'الأعراض، القصة المرضية، الحرارة، السعال، تشبع الأكسجين، أمراض سابقة...',
     createPatient: 'إنشاء مريض', useExisting: 'استخدام مريض موجود',
@@ -46,6 +56,15 @@ const I18N = {
   en: {
     heroKicker: 'Clinical decision support workspace',
     heroSubtitle: 'Chest X-ray analysis, optional lab merging, and a patient-context medical assistant.',
+    doctorPortalTitle: 'Doctor portal',
+    doctorPortalSubtitle: 'Sign in to access the medical case analysis workspace and patient reports.',
+    authDemoNote: 'This sign-in system is for organizing the demo on this browser. It can be connected later to real backend authentication.',
+    loginTab: 'Sign in', registerTab: 'Create account',
+    loginTitle: 'Doctor sign in', registerTitle: 'Create doctor account',
+    doctorName: 'Doctor name', doctorEmail: 'Email', doctorPassword: 'Password', doctorPasswordConfirm: 'Confirm password',
+    loginButton: 'Sign in', registerButton: 'Create account', logout: 'Sign out',
+    loggedInAs: 'Signed in as', accountCreated: 'Account created and signed in successfully.', loginSuccess: 'Signed in successfully.',
+    invalidCredentials: 'Incorrect email or password.', passwordsDoNotMatch: 'Passwords do not match.', accountExists: 'An account already exists with this email.', weakPassword: 'Password must be at least 6 characters.',
     workspaceReady: 'Ready to start the workflow',
     noActivePatient: 'No active patient',
     patientBadge: 'Patient',
@@ -90,7 +109,8 @@ const I18N = {
 };
 
 const state = {
-  apiBase: localStorage.getItem('ai_doctor_api_base') || 'https://ai-doctor-helper.onrender.com/api',  lang: localStorage.getItem('ai_doctor_lang') || 'ar',
+  apiBase: localStorage.getItem('ai_doctor_api_base') || 'http://127.0.0.1:8000/api',
+  lang: localStorage.getItem('ai_doctor_lang') || 'ar',
   patientId: '',
   latestReportUrl: '',
   chatReady: false,
@@ -168,6 +188,7 @@ function setLanguage(lang) {
   $('langEnBtn')?.classList.toggle('is-active', state.lang === 'en');
   renderSeverityLegend();
   updatePatientBadges();
+  updateAuthVisibility();
 }
 
 function setStatus(id, text, type = '') {
@@ -552,7 +573,7 @@ async function createPatient() {
     patient_name: $('patientName').value.trim(),
     age: $('age').value ? Number($('age').value) : null,
     sex: $('sex').value || null,
-    phone: $('phone').value.trim() || null,
+    phone: $('phone') ? $('phone').value.trim() || null : null,
     symptoms_or_notes: $('notes').value.trim() || null,
   };
   if (!body.patient_name) throw new Error(t('patientNameRequired'));
@@ -575,7 +596,7 @@ async function useExistingPatient() {
   $('patientName').value = patient.patient_name || '';
   $('age').value = patient.age ?? '';
   $('sex').value = patient.sex || '';
-  $('phone').value = patient.phone || '';
+  if ($('phone')) $('phone').value = patient.phone || '';
   $('notes').value = patient.symptoms_or_notes || '';
   setWorkflowStep('stepPatient', 'done');
   setWorkflowStep('stepXray', 'active');
@@ -755,8 +776,158 @@ function bindClick(id, handler, statusId) {
   });
 }
 
+
+const AUTH_ACCOUNTS_KEY = 'ai_doctor_doctor_accounts_v1';
+const AUTH_SESSION_KEY = 'ai_doctor_current_doctor_v1';
+
+function getDoctorAccounts() {
+  try {
+    const raw = localStorage.getItem(AUTH_ACCOUNTS_KEY);
+    const parsed = raw ? JSON.parse(raw) : [];
+    return Array.isArray(parsed) ? parsed : [];
+  } catch {
+    return [];
+  }
+}
+
+function saveDoctorAccounts(accounts) {
+  localStorage.setItem(AUTH_ACCOUNTS_KEY, JSON.stringify(accounts));
+}
+
+function normalizeEmail(email) {
+  return String(email || '').trim().toLowerCase();
+}
+
+async function hashPassword(password) {
+  const value = String(password || '');
+  if (window.crypto?.subtle && window.TextEncoder) {
+    const data = new TextEncoder().encode(value);
+    const digest = await crypto.subtle.digest('SHA-256', data);
+    return Array.from(new Uint8Array(digest)).map((byte) => byte.toString(16).padStart(2, '0')).join('');
+  }
+  return btoa(unescape(encodeURIComponent(value)));
+}
+
+function getCurrentDoctor() {
+  try {
+    const raw = localStorage.getItem(AUTH_SESSION_KEY);
+    return raw ? JSON.parse(raw) : null;
+  } catch {
+    return null;
+  }
+}
+
+function setAuthStatus(text, type = '') {
+  const el = $('authStatus');
+  if (!el) return;
+  el.textContent = text || '';
+  el.classList.toggle('error', type === 'error');
+  el.classList.toggle('success', type === 'success');
+}
+
+function showAuthMode(mode) {
+  const isRegister = mode === 'register';
+  $('loginForm')?.classList.toggle('is-hidden', isRegister);
+  $('registerForm')?.classList.toggle('is-hidden', !isRegister);
+  $('loginTabBtn')?.classList.toggle('is-active', !isRegister);
+  $('registerTabBtn')?.classList.toggle('is-active', isRegister);
+  setAuthStatus('');
+}
+
+function updateAuthVisibility() {
+  const doctor = getCurrentDoctor();
+  const isAuthenticated = Boolean(doctor?.email);
+
+  $('authScreen')?.classList.toggle('is-hidden', isAuthenticated);
+  document.querySelectorAll('.app-protected').forEach((el) => el.classList.toggle('is-hidden', !isAuthenticated));
+
+  const badge = $('doctorSessionBadge');
+  if (badge) {
+    badge.classList.toggle('is-hidden', !isAuthenticated);
+    badge.textContent = isAuthenticated ? `${t('loggedInAs')}: ${doctor.name || doctor.email}` : '';
+  }
+
+  $('logoutBtn')?.classList.toggle('is-hidden', !isAuthenticated);
+}
+
+async function registerDoctor(event) {
+  event.preventDefault();
+  const name = $('registerName')?.value.trim() || '';
+  const email = normalizeEmail($('registerEmail')?.value);
+  const password = $('registerPassword')?.value || '';
+  const confirm = $('registerPasswordConfirm')?.value || '';
+
+  if (password.length < 6) {
+    setAuthStatus(t('weakPassword'), 'error');
+    return;
+  }
+  if (password !== confirm) {
+    setAuthStatus(t('passwordsDoNotMatch'), 'error');
+    return;
+  }
+
+  const accounts = getDoctorAccounts();
+  if (accounts.some((account) => account.email === email)) {
+    setAuthStatus(t('accountExists'), 'error');
+    return;
+  }
+
+  const password_hash = await hashPassword(password);
+  const account = {
+    id: `doctor_${Date.now()}`,
+    name,
+    email,
+    password_hash,
+    created_at: new Date().toISOString(),
+  };
+
+  accounts.push(account);
+  saveDoctorAccounts(accounts);
+  localStorage.setItem(AUTH_SESSION_KEY, JSON.stringify({ id: account.id, name: account.name, email: account.email }));
+  setAuthStatus(t('accountCreated'), 'success');
+  updateAuthVisibility();
+}
+
+async function loginDoctor(event) {
+  event.preventDefault();
+  const email = normalizeEmail($('loginEmail')?.value);
+  const password = $('loginPassword')?.value || '';
+  const password_hash = await hashPassword(password);
+  const account = getDoctorAccounts().find((item) => item.email === email && item.password_hash === password_hash);
+
+  if (!account) {
+    setAuthStatus(t('invalidCredentials'), 'error');
+    return;
+  }
+
+  localStorage.setItem(AUTH_SESSION_KEY, JSON.stringify({ id: account.id, name: account.name, email: account.email }));
+  setAuthStatus(t('loginSuccess'), 'success');
+  updateAuthVisibility();
+}
+
+function logoutDoctor() {
+  localStorage.removeItem(AUTH_SESSION_KEY);
+  state.patientId = '';
+  state.latestReportUrl = '';
+  state.chatReady = false;
+  updatePatientBadges();
+  updateAuthVisibility();
+  showAuthMode('login');
+}
+
+function initializeAuth() {
+  $('loginTabBtn')?.addEventListener('click', () => showAuthMode('login'));
+  $('registerTabBtn')?.addEventListener('click', () => showAuthMode('register'));
+  $('loginForm')?.addEventListener('submit', loginDoctor);
+  $('registerForm')?.addEventListener('submit', registerDoctor);
+  $('logoutBtn')?.addEventListener('click', logoutDoctor);
+  updateAuthVisibility();
+}
+
+
 function initializeFrontend() {
   setLanguage(state.lang);
+  initializeAuth();
   renderSeverityLegend();
   updatePatientBadges();
   previewSelectedImage('xrayFile', 'xrayPreview');
