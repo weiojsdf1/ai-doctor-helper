@@ -154,9 +154,6 @@
           <h1 data-i18n="doctorPortalTitle">بوابة الطبيب</h1>
           <p data-i18n="doctorPortalSubtitle">سجّل الدخول للوصول إلى مساحة تحليل الحالات الطبية وإدارة تقارير المرضى.</p>
         </div>
-        <div class="auth-note" data-i18n="authDemoNote">
-          نظام تسجيل الدخول هنا مخصص لتنظيم العرض التجريبي على المتصفح الحالي. يمكن ربطه لاحقًا بنظام حسابات حقيقي في الباكيند.
-        </div>
       </div>
 
       <div class="auth-form-panel">
@@ -266,8 +263,8 @@
         </div>
 
         <div class="grid two">
-          <label><span data-i18n="patientName">اسم المريض</span><input id="patientName" data-i18n-placeholder /></label>
-          <label><span data-i18n="patientId">رقم الهاتف</span><input id="patientId" data-i18n-placeholder="patientIdPlaceholder" /></label>
+          <label><span data-i18n="patientName">اسم المريض</span><input id="patientName" data-i18n-placeholder="patientNamePlaceholder" /></label>
+          <label><span data-i18n="patientId">رقم الهاتف</span><input id="patientId" inputmode="tel" autocomplete="tel" data-i18n-placeholder="patientIdPlaceholder" /></label>
           <label><span data-i18n="age">العمر</span><input id="age" type="number"  /></label>
           <label><span data-i18n="sex">الجنس</span>
             <select id="sex">
@@ -299,7 +296,7 @@
 
         <div class="actions">
           <button id="uploadXrayBtn" class="btn btn--secondary" data-i18n="uploadXray">رفع الصورة</button>
-          <button id="analyzeXrayBtn" class="btn btn--primary" data-i18n="analyzeXray">تحليل الصورة</button>
+          <button id="analyzeXrayBtn" class="btn btn--primary" data-i18n="analyzeXray">تحليل الأشعة</button>
         </div>
         <div id="xrayStatus" class="status"></div>
       </article>
