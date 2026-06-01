@@ -4,12 +4,13 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>AI Doctor Helper</title>
+  <meta name="frontend-build" content="auth-route-v4" />
   <link rel="icon" href="favicon.ico?v=30" sizes="any" />
   <link rel="icon" type="image/svg+xml" href="favicon.svg?v=30" />
   <link rel="shortcut icon" href="favicon.ico?v=30" />
   <link rel="icon" type="image/png" href="favicon.png?v=30" />
   <link rel="apple-touch-icon" href="favicon.png?v=30" />
-  <link rel="stylesheet" href="styles.css?v=44" />
+  <link rel="stylesheet" href="styles.css?v=auth-route-v4" />
 
   <style>
     .is-hidden { display: none !important; }
@@ -440,6 +441,41 @@
     html[data-theme="dark"] .auth-lang-btn.is-active { color: #07131f; background: linear-gradient(135deg, #70d6ff, #7ee7bd); }
     html[data-theme="dark"] .password-toggle { background: rgba(255,255,255,0.10); color: #dff6ff; }
     html[data-theme="dark"] .password-toggle:hover { background: rgba(255,255,255,0.16); }
+
+    body.auth-page .app-protected { display: none !important; }
+    body.workspace-page #authScreen { display: none !important; }
+    body.auth-page { min-height: 100vh; overflow-x: hidden; }
+    body.workspace-page { min-height: 100vh; }
+    .password-field {
+      position: static !important;
+      display: grid !important;
+      grid-template-columns: minmax(0, 1fr) 42px !important;
+      align-items: center !important;
+      gap: 10px !important;
+      width: 100% !important;
+    }
+    .password-field input {
+      width: 100% !important;
+      margin-top: 0 !important;
+      padding-inline: 14px !important;
+      min-width: 0 !important;
+    }
+    html[dir="rtl"] .password-field input,
+    #authScreen .password-field input {
+      padding-inline: 14px !important;
+    }
+    .password-toggle {
+      position: static !important;
+      inset: auto !important;
+      transform: none !important;
+      width: 42px !important;
+      height: 42px !important;
+      min-width: 42px !important;
+      margin-top: 0 !important;
+      flex: 0 0 42px !important;
+    }
+    .password-toggle:active { transform: scale(0.96) !important; }
+
     @media (max-width: 720px) {
       #authScreen .auth-topbar { justify-content: center !important; }
       .auth-lang-btn { min-width: 62px; padding: 0 10px; }
@@ -594,11 +630,11 @@
         <div class="patient-form-grid">
           <label>
             <span data-i18n="patientName">اسم المريض</span>
-            <input id="patientName" data-i18n-placeholder="patientNamePlaceholder" />
+            <input id="patientName" />
           </label>
           <label>
             <span data-i18n="phone">رقم الهاتف</span>
-            <input id="phone" type="tel" inputmode="tel" autocomplete="tel" data-i18n-placeholder="phonePlaceholder" />
+            <input id="phone" type="tel" inputmode="tel" autocomplete="tel" />
           </label>
           <input id="patientId" type="hidden" />
           <label>
@@ -750,6 +786,6 @@
   </main>
 
   <button id="scrollTopBtn" class="scroll-top-btn" type="button" aria-label="Scroll to top">↑</button>
-  <script src="app.js?v=44"></script>
+  <script src="app.js?v=auth-route-v4"></script>
 </body>
 </html>

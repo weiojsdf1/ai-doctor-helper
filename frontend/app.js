@@ -1,3 +1,4 @@
+console.log("FRONTEND_BUILD: auth-route-v4");
 const I18N = {
   ar: {
     heroKicker: 'منصة دعم القرار الطبي',
@@ -1032,6 +1033,23 @@ function setAuthStatus(text, type = '') {
   el.classList.toggle('success', type === 'success');
 }
 
+function currentAuthRoute() {
+  const raw = String(window.location.hash || '').replace(/^#\/?/, '').trim();
+  if (raw === 'register') return 'register';
+  if (raw === 'workspace') return 'workspace';
+  return 'login';
+}
+
+function navigateTo(route) {
+  const target = route === 'workspace' ? 'workspace' : route === 'register' ? 'register' : 'login';
+  const hash = `#/${target}`;
+  if (window.location.hash !== hash) {
+    window.location.hash = hash;
+  } else {
+    updateAuthVisibility();
+  }
+}
+
 function showAuthMode(mode) {
   const isRegister = mode === 'register';
   $('loginForm')?.classList.toggle('is-hidden', isRegister);
@@ -1044,9 +1062,26 @@ function showAuthMode(mode) {
 function updateAuthVisibility() {
   const doctor = getCurrentDoctor();
   const isAuthenticated = Boolean(doctor?.email);
+  const route = currentAuthRoute();
 
-  $('authScreen')?.classList.toggle('is-hidden', isAuthenticated);
-  document.querySelectorAll('.app-protected').forEach((el) => el.classList.toggle('is-hidden', !isAuthenticated));
+  if (isAuthenticated && route !== 'workspace') {
+    navigateTo('workspace');
+    return;
+  }
+  if (!isAuthenticated && route === 'workspace') {
+    navigateTo('login');
+    return;
+  }
+
+  const showWorkspace = isAuthenticated && route === 'workspace';
+  const showAuth = !showWorkspace;
+
+  $('authScreen')?.classList.toggle('is-hidden', !showAuth);
+  document.querySelectorAll('.app-protected').forEach((el) => el.classList.toggle('is-hidden', !showWorkspace));
+  document.body.classList.toggle('auth-page', showAuth);
+  document.body.classList.toggle('workspace-page', showWorkspace);
+
+  if (showAuth) showAuthMode(route === 'register' ? 'register' : 'login');
 
   const badge = $('doctorSessionBadge');
   if (badge) {
@@ -1055,6 +1090,8 @@ function updateAuthVisibility() {
   }
 
   $('logoutBtn')?.classList.toggle('is-hidden', !isAuthenticated);
+
+  if (showWorkspace) window.scrollTo({ top: 0, behavior: 'instant' });
 }
 
 async function registerDoctor(event) {
@@ -1092,7 +1129,7 @@ async function registerDoctor(event) {
   saveDoctorAccounts(accounts);
   sessionStorage.setItem(AUTH_SESSION_KEY, JSON.stringify({ id: account.id, name: account.name, email: account.email }));
   setAuthStatus(authT('accountCreated'), 'success');
-  updateAuthVisibility();
+  navigateTo('workspace');
 }
 
 async function loginDoctor(event) {
@@ -1109,7 +1146,7 @@ async function loginDoctor(event) {
 
   sessionStorage.setItem(AUTH_SESSION_KEY, JSON.stringify({ id: account.id, name: account.name, email: account.email }));
   setAuthStatus(authT('loginSuccess'), 'success');
-  updateAuthVisibility();
+  navigateTo('workspace');
 }
 
 function logoutDoctor() {
@@ -1119,17 +1156,19 @@ function logoutDoctor() {
   state.latestReportUrl = '';
   state.chatReady = false;
   updatePatientBadges();
-  updateAuthVisibility();
-  showAuthMode('login');
+  navigateTo('login');
 }
 
+
 function initializeAuth() {
-  $('loginTabBtn')?.addEventListener('click', () => showAuthMode('login'));
-  $('registerTabBtn')?.addEventListener('click', () => showAuthMode('register'));
+  $('loginTabBtn')?.addEventListener('click', () => navigateTo('login'));
+  $('registerTabBtn')?.addEventListener('click', () => navigateTo('register'));
   $('loginForm')?.addEventListener('submit', loginDoctor);
   $('registerForm')?.addEventListener('submit', registerDoctor);
   $('logoutBtn')?.addEventListener('click', logoutDoctor);
-  updateAuthVisibility();
+  window.addEventListener('hashchange', updateAuthVisibility);
+  if (!window.location.hash) navigateTo(getCurrentDoctor()?.email ? 'workspace' : 'login');
+  else updateAuthVisibility();
 }
 
 
