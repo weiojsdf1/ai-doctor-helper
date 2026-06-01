@@ -3,13 +3,15 @@ const I18N = {
     heroKicker: 'منصة دعم القرار الطبي',
     heroSubtitle: 'تحليل أشعة الصدر، دمج التحاليل، ومحادثة طبية مبنية على سياق المريض.',
     doctorPortalTitle: 'بوابة الطبيب',
-    doctorPortalSubtitle: 'سجّل الدخول للوصول إلى مساحة تحليل الحالات الطبية وإدارة تقارير المرضى.',
+    doctorPortalSubtitle: 'مساحة عمل سريرية منظمة لتحليل صور الأشعة ودمج التحاليل ومراجعة سياق المريض.',
+    authAccessNote: 'يرجى تسجيل الدخول بحساب الطبيب للوصول إلى مساحة العمل الطبية.',
     loginTab: 'تسجيل الدخول', registerTab: 'إنشاء حساب',
     loginTitle: 'تسجيل دخول الطبيب', registerTitle: 'إنشاء حساب طبيب',
     doctorName: 'اسم الطبيب', doctorEmail: 'البريد الإلكتروني', doctorPassword: 'كلمة المرور', doctorPasswordConfirm: 'تأكيد كلمة المرور',
     loginButton: 'دخول', registerButton: 'إنشاء الحساب', logout: 'تسجيل الخروج',
     loggedInAs: 'تم الدخول باسم', accountCreated: 'تم إنشاء الحساب وتسجيل الدخول بنجاح.', loginSuccess: 'تم تسجيل الدخول بنجاح.',
     invalidCredentials: 'البريد الإلكتروني أو كلمة المرور غير صحيحة.', passwordsDoNotMatch: 'كلمتا المرور غير متطابقتين.', accountExists: 'يوجد حساب مسجل بهذا البريد الإلكتروني.', weakPassword: 'يجب أن تكون كلمة المرور 6 أحرف على الأقل.',
+    themeDark: 'الوضع الليلي', themeLight: 'الوضع النهاري', showPassword: 'إظهار', hidePassword: 'إخفاء',
     workspaceReady: 'جاهز لبدء سير العمل',
     noActivePatient: 'لا يوجد مريض نشط',
     patientBadge: 'المريض',
@@ -20,17 +22,19 @@ const I18N = {
     stepLabTitle: 'التحاليل', stepLabSub: 'دمج اختياري',
     stepChatTitle: 'المساعد', stepChatSub: 'أسئلة مبنية على السياق',
     patientKicker: 'بيانات المريض', patientTitle: '1. المريض', required: 'مطلوب',
-    patientName: 'اسم المريض', patientNamePlaceholder: 'مثال: سنا', patientId: 'رقم الهاتف', patientIdPlaceholder: 'اكتب رقم هاتف المريض',
-    age: 'العمر', sex: 'الجنس', sexUnknown: 'غير محدد', sexFemale: 'أنثى', sexMale: 'ذكر', phone: 'رقم الهاتف', optional: 'اختياري', notes: 'ملاحظات سريرية',
+    patientName: 'اسم المريض', patientNamePlaceholder: 'مثال: سارة أحمد', patientId: 'معرّف المريض', patientIdPlaceholder: 'يُملأ تلقائيًا بعد إنشاء المريض', age: 'العمر', agePlaceholder: 'مثال: 45', sex: 'الجنس', sexUnknown: 'غير محدد', sexFemale: 'أنثى', sexMale: 'ذكر', phone: 'رقم الهاتف', phonePlaceholder: 'اكتب رقم هاتف المريض', optional: 'اختياري', notes: 'ملاحظات سريرية',
     notesPlaceholder: 'الأعراض، القصة المرضية، الحرارة، السعال، تشبع الأكسجين، أمراض سابقة...',
+    patientDirectoryKicker: 'سجل المرضى', patientDirectoryTitle: 'المرضى الذين تم تحليلهم', patientDirectoryHint: 'ابحث بالاسم أو رقم الهاتف أو معرّف المريض، ثم افتح ملف المريض لاستكمال العمل.',
+    patientSearchPlaceholder: 'بحث بالاسم، رقم الهاتف، أو معرّف المريض...', refreshPatients: 'تحديث القائمة', patientCount: 'عدد المرضى', noPatientsFound: 'لا توجد نتائج مطابقة.', noPatientsYet: 'لا توجد سجلات مرضى بعد.',
+    patientColId: 'المعرّف', patientColName: 'الاسم', patientColPhone: 'رقم الهاتف', patientColAge: 'العمر', patientColSex: 'الجنس', patientColCreated: 'تاريخ الإنشاء', patientColActions: 'إجراء', usePatientRecord: 'فتح الملف',
     createPatient: 'إنشاء مريض', useExisting: 'استخدام مريض موجود',
-    xrayKicker: 'الخطوة الأساسية', xrayTitle: '2. تحليل صورة الأشعة', mainStep: 'خطوة رئيسية', xrayImage: 'صورة أشعة الصدر', noXrayPreview: 'لا توجد معاينة للأشعة بعد', uploadXray: 'رفع الصورة', analyzeXray: 'تحليل الأشعة',
+    xrayKicker: 'الخطوة الأساسية', xrayTitle: '2. تحليل صورة الأشعة', mainStep: 'خطوة رئيسية', xrayImage: 'صورة أشعة الصدر', noXrayPreview: 'لا توجد معاينة للأشعة بعد', uploadXray: 'رفع الأشعة', analyzeXray: 'تحليل الأشعة',
     labKicker: 'بيانات داعمة اختيارية', labTitle: '3. تقرير التحاليل', optionalStep: 'اختياري', labHint: 'يمكن إضافة صورة التحليل بعد تحليل الأشعة لتحديث التقرير وسياق المحادثة.', labImage: 'صورة تقرير التحليل', noLabPreview: 'لا توجد معاينة للتحليل بعد', uploadLab: 'رفع التحليل', analyzeLab: 'تحليل ودمج التحاليل',
     legendTitle: 'دليل ألوان الإشعارات الطبية',
     xrayResultKicker: 'نتيجة التصوير', xrayResultTitle: 'تفسير صورة الأشعة', notAnalyzed: 'لم يتم التحليل', xrayEmpty: 'قم بتحليل صورة الأشعة لعرض الملخص المهم والإشعارات الطبية هنا.',
     labResultKicker: 'نتيجة التحاليل', labResultTitle: 'ملخص التحليل المخبري', notAdded: 'لم تتم الإضافة', labEmpty: 'بعد رفع التحليل ستظهر القيم المهمة فقط، دون عرض نص OCR الطويل.',
-    integratedKicker: 'الملخص السريري', integratedTitle: 'السياق الطبي المتكامل', refreshReports: 'تحديث التقارير', integratedEmpty: 'لا يوجد ملخص متكامل بعد. أكمل تحليل الأشعة أولًا، ثم أضف التحاليل اختياريًا.',
-    chatKicker: 'مساعد يعتمد على سياق المريض', chatTitle: '4. المساعد الطبي', waitingContext: 'بانتظار السياق', chatWelcome: 'قم بتحليل صورة الأشعة أولًا، ثم اسأل عن سياق المريض المحفوظ. هذا المساعد للدعم التعليمي فقط وليس تشخيصًا نهائيًا.',
+    integratedKicker: 'الملخص السريري', integratedTitle: 'السياق الطبي المتكامل', refreshReports: 'تحديث التقارير', integratedEmpty: 'لا يوجد ملخص متكامل بعد. أكمل تحليل الأشعة أولاً، ثم أضف التحاليل اختيارياً.',
+    chatKicker: 'مساعد يعتمد على سياق المريض', chatTitle: '4. المساعد الطبي', waitingContext: 'بانتظار السياق', chatWelcome: 'قم بتحليل صورة الأشعة أولاً، ثم اسأل عن سياق المريض المحفوظ. هذا المساعد للدعم التعليمي فقط وليس تشخيصاً نهائياً.',
     chatPlaceholder: 'اسأل عن حالة المريض والسياق المحفوظ...', send: 'إرسال',
     quickInitial: 'الانطباع الأولي', quickSummary: 'ملخص الأشعة والتحاليل', quickChecks: 'الفحوصات التالية', quickTeaching: 'التوضيح والشرح',
     status: 'الحالة', source: 'المصدر', xrayFiles: 'ملفات الأشعة', labFiles: 'ملفات التحاليل',
@@ -43,10 +47,10 @@ const I18N = {
     imageQuality: 'جودة الصورة', severity: 'تقدير الشدة', findings: 'النتائج', impression: 'الانطباع', recommendations: 'التوصيات', alerts: 'التنبيهات',
     labImportantValues: 'القيم المخبرية المهمة', labInterpretation: 'تفسير التحاليل', noAbnormalLab: 'لم يتم تمييز قيم مخبرية شاذة بوضوح.', rawHidden: 'تم إخفاء نص OCR الكامل لإبقاء الواجهة مختصرة. يمكن مراجعة التقرير الكامل عند الحاجة.',
     integratedInterpretation: 'التفسير المتكامل', medicalExplanation: 'شرح طبي مختصر', openReport: 'فتح التقرير', downloadReport: 'تحميل التقرير', openLatestReport: 'فتح أحدث تقرير', downloadLatestReport: 'تحميل أحدث تقرير',
-    warnings: 'تحذيرات', noWarnings: 'لا توجد تحذيرات', reportLoading: 'جاري تحميل ملخص التقرير...', reportLoadFailed: 'تعذر تحميل ملخص التقرير تلقائيًا. استخدم زر فتح التقرير.',
-    creatingPatient: 'جاري إنشاء المريض...', patientNameRequired: 'اسم المريض مطلوب.', patientCreated: 'تم إنشاء المريض', enterPatientId: 'أدخل رقم الهاتف أولًا.', loadingPatient: 'جاري تحميل بيانات المريض...', usingPatient: 'يتم استخدام المريض',
-    createOrLoadFirst: 'أنشئ مريضًا أو حمّل مريضًا موجودًا أولًا.', chooseFileFirst: 'اختر صورة أولًا.', uploading: 'جاري الرفع...', uploadSuccess: 'تم رفع الملف بنجاح.', fileMissingAfterUpload: 'اكتمل طلب الرفع، لكن الملف لم يظهر ضمن ملفات المريض.', noUploadedFile: 'لا يوجد ملف مرفوع لهذا المريض. اختر الملف وارفعه أولًا.',
-    analyzingXray: 'جاري تحليل الأشعة...', checkingXray: 'جاري التحقق من رفع صورة الأشعة...', xrayMayTake: 'جاري تحليل الأشعة بواسطة خدمة الذكاء الاصطناعي. قد يستغرق الطلب الأول وقتًا أطول...', xrayFallback: 'عاد تحليل الأشعة بوضع احتياطي. راجع التحذيرات.', xrayDone: 'اكتمل تحليل الأشعة. أصبحت المحادثة متاحة الآن.',
+    warnings: 'تحذيرات', noWarnings: 'لا توجد تحذيرات', reportLoading: 'جاري تحميل ملخص التقرير...', reportLoadFailed: 'تعذر تحميل ملخص التقرير تلقائياً. استخدم زر فتح التقرير.',
+    creatingPatient: 'جاري إنشاء المريض...', patientNameRequired: 'اسم المريض مطلوب.', patientCreated: 'تم إنشاء المريض', enterPatientId: 'أدخل رقم المريض أولاً.', loadingPatient: 'جاري تحميل بيانات المريض...', usingPatient: 'يتم استخدام المريض',
+    createOrLoadFirst: 'أنشئ مريضاً أو حمّل مريضاً موجوداً أولاً.', chooseFileFirst: 'اختر صورة أولاً.', uploading: 'جاري الرفع...', uploadSuccess: 'تم رفع الملف بنجاح.', fileMissingAfterUpload: 'اكتمل طلب الرفع، لكن الملف لم يظهر ضمن ملفات المريض.', noUploadedFile: 'لا يوجد ملف مرفوع لهذا المريض. اختر الملف وارفعه أولاً.',
+    analyzingXray: 'جاري تحليل الأشعة...', checkingXray: 'جاري التحقق من رفع صورة الأشعة...', xrayMayTake: 'جاري تحليل الأشعة بواسطة خدمة الذكاء الاصطناعي. قد يستغرق الطلب الأول وقتاً أطول...', xrayFallback: 'عاد تحليل الأشعة بوضع احتياطي. راجع التحذيرات.', xrayDone: 'اكتمل تحليل الأشعة. أصبحت المحادثة متاحة الآن.',
     analyzingLab: 'جاري تحليل المختبر ودمج السياق...', checkingLab: 'جاري التحقق من رفع صورة التحليل...', labMayTake: 'جاري تحليل تقرير المختبر ودمجه مع سياق الأشعة المحفوظ...', labDoneWarnings: 'اكتمل دمج التحاليل مع وجود تحذيرات.', labDone: 'اكتمل دمج التحاليل.',
     contextReady: 'السياق جاهز', askingAssistant: 'جاري سؤال المساعد...', sendingQuestion: 'جاري إرسال السؤال...', answerReceived: 'تم استلام الإجابة.', sourceLabel: 'المصدر', refreshedReport: 'تم تحميل أحدث تقرير', noReports: 'لا توجد تقارير لهذا المريض.', refreshingReports: 'جاري تحديث أحدث تقرير...', actionFailed: 'فشل الإجراء', chatFailed: 'فشلت المحادثة',
     tableTest: 'التحليل', tableValue: 'القيمة', tableUnit: 'الوحدة', tableStatus: 'الحالة', tableRange: 'المدى المرجعي',
@@ -55,13 +59,15 @@ const I18N = {
     heroKicker: 'Clinical decision support workspace',
     heroSubtitle: 'Chest X-ray analysis, optional lab merging, and a patient-context medical assistant.',
     doctorPortalTitle: 'Doctor portal',
-    doctorPortalSubtitle: 'Sign in to access the medical case analysis workspace and patient reports.',
+    doctorPortalSubtitle: 'A structured clinical workspace for X-ray analysis, lab merging, and patient-context review.',
+    authAccessNote: 'Sign in with a doctor account to access the clinical workspace.',
     loginTab: 'Sign in', registerTab: 'Create account',
     loginTitle: 'Doctor sign in', registerTitle: 'Create doctor account',
     doctorName: 'Doctor name', doctorEmail: 'Email', doctorPassword: 'Password', doctorPasswordConfirm: 'Confirm password',
     loginButton: 'Sign in', registerButton: 'Create account', logout: 'Sign out',
     loggedInAs: 'Signed in as', accountCreated: 'Account created and signed in successfully.', loginSuccess: 'Signed in successfully.',
     invalidCredentials: 'Incorrect email or password.', passwordsDoNotMatch: 'Passwords do not match.', accountExists: 'An account already exists with this email.', weakPassword: 'Password must be at least 6 characters.',
+    themeDark: 'Dark mode', themeLight: 'Light mode', showPassword: 'Show', hidePassword: 'Hide',
     workspaceReady: 'Ready to start the workflow',
     noActivePatient: 'No active patient',
     patientBadge: 'Patient',
@@ -72,9 +78,12 @@ const I18N = {
     stepLabTitle: 'Lab', stepLabSub: 'Optional merge',
     stepChatTitle: 'Assistant', stepChatSub: 'Context-based questions',
     patientKicker: 'Patient data', patientTitle: '1. Patient', required: 'Required',
-    patientName: 'Patient name', patientNamePlaceholder: 'Example: Sana', patientId: 'Phone number', patientIdPlaceholder: 'Enter patient phone number',
+    patientName: 'Patient name', patientNamePlaceholder: 'Example: Sara Ahmed', patientId: 'Patient ID', patientIdPlaceholder: 'Filled automatically after creating a patient', phonePlaceholder: 'Enter patient phone number', agePlaceholder: 'Example: 45',
     age: 'Age', sex: 'Sex', sexUnknown: 'Unknown', sexFemale: 'Female', sexMale: 'Male', phone: 'Phone', optional: 'Optional', notes: 'Clinical notes',
     notesPlaceholder: 'Symptoms, history, fever, cough, oxygen saturation, comorbidities...',
+    patientDirectoryKicker: 'Patient records', patientDirectoryTitle: 'Diagnosed patients', patientDirectoryHint: 'Search by name, phone number, or patient ID, then open a record to continue the workflow.',
+    patientSearchPlaceholder: 'Search by name, phone, or patient ID...', refreshPatients: 'Refresh list', patientCount: 'Patients', noPatientsFound: 'No matching patients found.', noPatientsYet: 'No patient records yet.',
+    patientColId: 'ID', patientColName: 'Name', patientColPhone: 'Phone', patientColAge: 'Age', patientColSex: 'Sex', patientColCreated: 'Created', patientColActions: 'Action', usePatientRecord: 'Open record',
     createPatient: 'Create Patient', useExisting: 'Use Existing Patient',
     xrayKicker: 'Core step', xrayTitle: '2. X-ray Analysis', mainStep: 'Main step', xrayImage: 'Chest X-ray image', noXrayPreview: 'No X-ray preview yet', uploadXray: 'Upload X-ray', analyzeXray: 'Analyze X-ray',
     labKicker: 'Optional supporting data', labTitle: '3. Lab Report', optionalStep: 'Optional', labHint: 'Add a lab image after X-ray analysis to update the report and chat context.', labImage: 'Lab report image', noLabPreview: 'No lab preview yet', uploadLab: 'Upload Lab', analyzeLab: 'Analyze Lab & Merge',
@@ -96,7 +105,7 @@ const I18N = {
     labImportantValues: 'Important lab values', labInterpretation: 'Lab interpretation', noAbnormalLab: 'No clearly flagged abnormal lab values.', rawHidden: 'Full OCR text is hidden to keep the interface concise. Open the full report if needed.',
     integratedInterpretation: 'Integrated interpretation', medicalExplanation: 'Brief medical explanation', openReport: 'Open Report', downloadReport: 'Download Report', openLatestReport: 'Open Latest Report', downloadLatestReport: 'Download Latest Report',
     warnings: 'Warnings', noWarnings: 'No warnings', reportLoading: 'Loading report summary...', reportLoadFailed: 'Could not load report summary automatically. Use the open report button.',
-    creatingPatient: 'Creating patient...', patientNameRequired: 'Patient name is required.', patientCreated: 'Patient created', enterPatientId: 'Enter phone number first.', loadingPatient: 'Loading patient...', usingPatient: 'Using patient',
+    creatingPatient: 'Creating patient...', patientNameRequired: 'Patient name is required.', patientCreated: 'Patient created', enterPatientId: 'Enter patient ID first.', loadingPatient: 'Loading patient...', usingPatient: 'Using patient',
     createOrLoadFirst: 'Create or load a patient first.', chooseFileFirst: 'Choose an image first.', uploading: 'Uploading...', uploadSuccess: 'File uploaded successfully.', fileMissingAfterUpload: 'Upload request finished, but the file did not appear in patient files.', noUploadedFile: 'No uploaded file exists for this patient. Choose and upload the file first.',
     analyzingXray: 'Analyzing X-ray...', checkingXray: 'Checking X-ray upload...', xrayMayTake: 'Analyzing X-ray with the AI service. The first request may take longer...', xrayFallback: 'X-ray analysis returned fallback. Check warnings.', xrayDone: 'X-ray analysis completed. Chat is now available.',
     analyzingLab: 'Analyzing lab and merging context...', checkingLab: 'Checking lab image upload...', labMayTake: 'Analyzing lab report and merging it with saved X-ray context...', labDoneWarnings: 'Lab merge completed with warnings.', labDone: 'Lab merge completed.',
@@ -108,15 +117,31 @@ const I18N = {
 const state = {
   apiBase: localStorage.getItem('ai_doctor_api_base') || 'https://ai-doctor-helper.onrender.com/api',
   lang: localStorage.getItem('ai_doctor_lang') || 'ar',
+  theme: localStorage.getItem('ai_doctor_theme') || 'light',
   patientId: '',
   latestReportUrl: '',
   chatReady: false,
   xrayParsed: null,
   labParsed: null,
+  patientsDirectory: [],
 };
 
 const $ = (id) => document.getElementById(id);
 const t = (key) => (I18N[state.lang] && I18N[state.lang][key]) || I18N.ar[key] || key;
+
+const AUTH_TEXT = {
+  accountCreated: 'Account created successfully. You are now signed in.',
+  loginSuccess: 'Signed in successfully.',
+  invalidCredentials: 'Incorrect email or password.',
+  passwordsDoNotMatch: 'Passwords do not match.',
+  accountExists: 'An account already exists with this email.',
+  weakPassword: 'Password must be at least 6 characters.',
+  showPassword: 'Show',
+  hidePassword: 'Hide',
+  themeDark: 'Dark mode',
+  themeLight: 'Light mode',
+};
+const authT = (key) => AUTH_TEXT[key] || key;
 
 function escapeHtml(value) {
   return String(value ?? '')
@@ -173,16 +198,20 @@ function setLanguage(lang) {
   document.documentElement.dir = state.lang === 'ar' ? 'rtl' : 'ltr';
 
   document.querySelectorAll('[data-i18n]').forEach((el) => {
+    if (el.closest('#authScreen')) return;
     const key = el.dataset.i18n;
     if (key && I18N[state.lang][key]) el.textContent = t(key);
   });
   document.querySelectorAll('[data-i18n-placeholder]').forEach((el) => {
+    if (el.closest('#authScreen')) return;
     const key = el.dataset.i18nPlaceholder;
     if (key && I18N[state.lang][key]) el.placeholder = t(key);
   });
 
   $('langArBtn')?.classList.toggle('is-active', state.lang === 'ar');
   $('langEnBtn')?.classList.toggle('is-active', state.lang === 'en');
+  $('authLangArBtn')?.classList.toggle('is-active', state.lang === 'ar');
+  $('authLangEnBtn')?.classList.toggle('is-active', state.lang === 'en');
   renderSeverityLegend();
   updatePatientBadges();
   updateAuthVisibility();
@@ -253,8 +282,16 @@ function updateResultBadge(id, result) {
 }
 
 function getApiBase() { return state.apiBase.replace(/\/$/, ''); }
-function getPatientId() { return $('patientId').value.trim(); }
-function setPatientId(patientId) { state.patientId = patientId; $('patientId').value = patientId; updatePatientBadges(); }
+function getPatientId() {
+  const patientIdInput = $('patientId');
+  return (patientIdInput ? patientIdInput.value : state.patientId || '').trim();
+}
+function setPatientId(patientId) {
+  state.patientId = patientId || '';
+  const patientIdInput = $('patientId');
+  if (patientIdInput) patientIdInput.value = state.patientId;
+  updatePatientBadges();
+}
 function getReportUrl(reportDownloadUrl) {
   if (!reportDownloadUrl) return '';
   if (reportDownloadUrl.startsWith('http')) return reportDownloadUrl;
@@ -314,8 +351,8 @@ function classifySeverity(text, explicitSeverity = '', warnings = []) {
 function alertCopy(level, context = '') {
   const byLevel = {
     critical: [t('attentionRequired'), state.lang === 'ar' ? 'توجد مؤشرات قد تكون عالية الخطورة وتحتاج مراجعة فورية.' : 'Potential high-risk findings require urgent review.'],
-    high: [t('monitorClosely'), state.lang === 'ar' ? 'النتائج غير مطمئنة بالكامل وتحتاج ربطًا سريريًا ومتابعة الطبيب.' : 'Findings are not fully reassuring and need clinical correlation.'],
-    moderate: [t('moderateConcern'), state.lang === 'ar' ? 'توجد ملاحظة تحتاج متابعة دون اعتبارها تشخيصًا نهائيًا.' : 'There is a note that needs follow-up; not a final diagnosis.'],
+    high: [t('monitorClosely'), state.lang === 'ar' ? 'النتائج غير مطمئنة بالكامل وتحتاج ربطاً سريرياً ومتابعة الطبيب.' : 'Findings are not fully reassuring and need clinical correlation.'],
+    moderate: [t('moderateConcern'), state.lang === 'ar' ? 'توجد ملاحظة تحتاج متابعة دون اعتبارها تشخيصاً نهائياً.' : 'There is a note that needs follow-up; not a final diagnosis.'],
     normal: [t('stableSummary'), state.lang === 'ar' ? 'لا تظهر مؤشرات خطورة واضحة ضمن الملخص المتاح.' : 'No clear high-risk signal in the available summary.'],
     info: [t('infoSummary'), state.lang === 'ar' ? 'تتوفر معلومات داعمة تحتاج قراءة الطبيب.' : 'Supportive context information is available.'],
   };
@@ -570,7 +607,7 @@ async function createPatient() {
     patient_name: $('patientName').value.trim(),
     age: $('age').value ? Number($('age').value) : null,
     sex: $('sex').value || null,
-    phone: $('phone') ? $('phone').value.trim() || null : null,
+    phone: null,
     symptoms_or_notes: $('notes').value.trim() || null,
   };
   if (!body.patient_name) throw new Error(t('patientNameRequired'));
@@ -579,12 +616,13 @@ async function createPatient() {
   setWorkflowStep('stepPatient', 'done');
   setWorkflowStep('stepXray', 'active');
   setStatus('patientStatus', `${t('patientCreated')}: ${patient.patient_id}`, 'success');
+  await loadPatientsDirectory().catch(() => {});
   setBusy(false);
   return patient;
 }
 
-async function useExistingPatient() {
-  const patientId = getPatientId();
+async function useExistingPatient(patientIdOverride = '') {
+  const patientId = String(patientIdOverride || getPatientId()).trim();
   if (!patientId) throw new Error(t('enterPatientId'));
   setBusy(true, t('loadingPatient'));
   setStatus('patientStatus', t('loadingPatient'));
@@ -593,7 +631,7 @@ async function useExistingPatient() {
   $('patientName').value = patient.patient_name || '';
   $('age').value = patient.age ?? '';
   $('sex').value = patient.sex || '';
-  if ($('phone')) $('phone').value = patient.phone || '';
+
   $('notes').value = patient.symptoms_or_notes || '';
   setWorkflowStep('stepPatient', 'done');
   setWorkflowStep('stepXray', 'active');
@@ -711,6 +749,111 @@ async function sendChat() {
   setBusy(false);
 }
 
+
+async function loadPatientsDirectory() {
+  setStatus('patientDirectoryStatus', t('refreshingReports'));
+  const patients = await requestJson(`${getApiBase()}/patients`, { method: 'GET' });
+  state.patientsDirectory = Array.isArray(patients) ? patients : [];
+  renderPatientsDirectory();
+  setStatus('patientDirectoryStatus', `${t('patientCount')}: ${state.patientsDirectory.length}`, 'success');
+  return state.patientsDirectory;
+}
+
+function formatDate(value) {
+  if (!value) return '-';
+  try {
+    return new Intl.DateTimeFormat(state.lang === 'ar' ? 'ar' : 'en', {
+      year: 'numeric', month: 'short', day: '2-digit', hour: '2-digit', minute: '2-digit'
+    }).format(new Date(value));
+  } catch {
+    return String(value).slice(0, 16);
+  }
+}
+
+function getPatientDirectoryFilter() {
+  return String($('patientSearch')?.value || '').trim().toLowerCase();
+}
+
+function patientMatchesFilter(patient, filter) {
+  if (!filter) return true;
+  const values = [
+    patient.patient_id,
+    patient.patient_name,
+    patient.phone,
+    patient.sex,
+    patient.age,
+    patient.created_at,
+  ].map((x) => String(x ?? '').toLowerCase());
+  return values.some((value) => value.includes(filter));
+}
+
+function renderPatientsDirectory() {
+  const container = $('patientsDirectory');
+  const countEl = $('patientDirectoryCount');
+  if (!container) return;
+
+  const filter = getPatientDirectoryFilter();
+  const filtered = (state.patientsDirectory || []).filter((patient) => patientMatchesFilter(patient, filter));
+  if (countEl) countEl.textContent = `${t('patientCount')}: ${filtered.length}`;
+
+  if (!state.patientsDirectory.length) {
+    container.className = 'patient-directory-empty';
+    container.innerHTML = escapeHtml(t('noPatientsYet'));
+    return;
+  }
+  if (!filtered.length) {
+    container.className = 'patient-directory-empty';
+    container.innerHTML = escapeHtml(t('noPatientsFound'));
+    return;
+  }
+
+  container.className = 'patient-directory-table-wrap';
+  container.innerHTML = `
+    <table class="patient-directory-table">
+      <thead>
+        <tr>
+          <th>${escapeHtml(t('patientColId'))}</th>
+          <th>${escapeHtml(t('patientColName'))}</th>
+          <th>${escapeHtml(t('patientColPhone'))}</th>
+          <th>${escapeHtml(t('patientColAge'))}</th>
+          <th>${escapeHtml(t('patientColSex'))}</th>
+          <th>${escapeHtml(t('patientColCreated'))}</th>
+          <th>${escapeHtml(t('patientColActions'))}</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${filtered.map((patient) => `
+          <tr>
+            <td><strong>${escapeHtml(patient.patient_id || '-')}</strong></td>
+            <td>${escapeHtml(patient.patient_name || '-')}</td>
+            <td>${escapeHtml(patient.phone || '-')}</td>
+            <td>${escapeHtml(patient.age ?? '-')}</td>
+            <td>${escapeHtml(patient.sex || '-')}</td>
+            <td>${escapeHtml(formatDate(patient.created_at))}</td>
+            <td><button type="button" class="btn btn--secondary btn--small patient-open-btn" data-patient-id="${escapeHtml(patient.patient_id || '')}">${escapeHtml(t('usePatientRecord'))}</button></td>
+          </tr>
+        `).join('')}
+      </tbody>
+    </table>
+  `;
+
+  container.querySelectorAll('.patient-open-btn').forEach((button) => {
+    button.addEventListener('click', async () => {
+      const patientId = button.dataset.patientId || '';
+      try {
+        button.disabled = true;
+        await useExistingPatient(patientId);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } catch (err) {
+        setSystemError(t('actionFailed'));
+        setStatus('patientDirectoryStatus', err.message || String(err), 'error');
+      } finally {
+        button.disabled = false;
+      }
+    });
+  });
+}
+
 async function loadChatHistory(patientId) {
   try {
     const messages = await requestJson(`${getApiBase()}/patients/${encodeURIComponent(patientId)}/chat/history`);
@@ -774,8 +917,75 @@ function bindClick(id, handler, statusId) {
 }
 
 
+
+function applyTheme(theme) {
+  state.theme = theme === 'dark' ? 'dark' : 'light';
+  localStorage.setItem('ai_doctor_theme', state.theme);
+  document.documentElement.dataset.theme = state.theme;
+  updateThemeButtons();
+}
+
+function toggleTheme() {
+  applyTheme(state.theme === 'dark' ? 'light' : 'dark');
+}
+
+function updateThemeButtons() {
+  const appLabel = state.theme === 'dark' ? t('themeLight') : t('themeDark');
+  const authLabel = state.theme === 'dark' ? authT('themeLight') : authT('themeDark');
+  const appButton = $('themeToggleBtn');
+  const authButton = $('authThemeToggleBtn');
+  if (appButton) appButton.textContent = appLabel;
+  if (authButton) {
+    const iconNode = authButton.querySelector('.theme-icon');
+    if (iconNode) iconNode.textContent = state.theme === 'dark' ? '☀' : '☾';
+    else authButton.textContent = authLabel;
+    authButton.setAttribute('aria-label', authLabel);
+    authButton.setAttribute('title', authLabel);
+  }
+}
+
+function updatePasswordToggleLabels() {
+  document.querySelectorAll('[data-toggle-password]').forEach((button) => {
+    const input = $(button.dataset.togglePassword);
+    const isVisible = input?.type === 'text';
+    const useAuthEnglish = Boolean(button.closest('#authScreen'));
+    const label = isVisible
+      ? (useAuthEnglish ? authT('hidePassword') : t('hidePassword'))
+      : (useAuthEnglish ? authT('showPassword') : t('showPassword'));
+    button.classList.toggle('is-visible', Boolean(isVisible));
+    button.setAttribute('aria-label', label);
+    button.setAttribute('title', label);
+  });
+}
+
+function initializeDisplayControls() {
+  applyTheme(state.theme);
+  $('themeToggleBtn')?.addEventListener('click', toggleTheme);
+  $('authThemeToggleBtn')?.addEventListener('click', toggleTheme);
+  $('authLangArBtn')?.addEventListener('click', () => setLanguage('ar'));
+  $('authLangEnBtn')?.addEventListener('click', () => setLanguage('en'));
+
+  document.querySelectorAll('[data-toggle-password]').forEach((button) => {
+    button.addEventListener('click', () => {
+      const input = $(button.dataset.togglePassword);
+      if (!input) return;
+      input.type = input.type === 'password' ? 'text' : 'password';
+      updatePasswordToggleLabels();
+      input.focus();
+    });
+  });
+
+  const scrollButton = $('scrollTopBtn');
+  if (scrollButton) {
+    const updateScrollButton = () => scrollButton.classList.toggle('is-visible', window.scrollY > 420);
+    window.addEventListener('scroll', updateScrollButton, { passive: true });
+    scrollButton.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+    updateScrollButton();
+  }
+}
+
 const AUTH_ACCOUNTS_KEY = 'ai_doctor_doctor_accounts_v1';
-const AUTH_SESSION_KEY = 'ai_doctor_current_doctor_v1';
+const AUTH_SESSION_KEY = 'ai_doctor_current_doctor_session_v2';
 
 function getDoctorAccounts() {
   try {
@@ -807,7 +1017,7 @@ async function hashPassword(password) {
 
 function getCurrentDoctor() {
   try {
-    const raw = localStorage.getItem(AUTH_SESSION_KEY);
+    const raw = sessionStorage.getItem(AUTH_SESSION_KEY);
     return raw ? JSON.parse(raw) : null;
   } catch {
     return null;
@@ -855,17 +1065,17 @@ async function registerDoctor(event) {
   const confirm = $('registerPasswordConfirm')?.value || '';
 
   if (password.length < 6) {
-    setAuthStatus(t('weakPassword'), 'error');
+    setAuthStatus(authT('weakPassword'), 'error');
     return;
   }
   if (password !== confirm) {
-    setAuthStatus(t('passwordsDoNotMatch'), 'error');
+    setAuthStatus(authT('passwordsDoNotMatch'), 'error');
     return;
   }
 
   const accounts = getDoctorAccounts();
   if (accounts.some((account) => account.email === email)) {
-    setAuthStatus(t('accountExists'), 'error');
+    setAuthStatus(authT('accountExists'), 'error');
     return;
   }
 
@@ -880,8 +1090,8 @@ async function registerDoctor(event) {
 
   accounts.push(account);
   saveDoctorAccounts(accounts);
-  localStorage.setItem(AUTH_SESSION_KEY, JSON.stringify({ id: account.id, name: account.name, email: account.email }));
-  setAuthStatus(t('accountCreated'), 'success');
+  sessionStorage.setItem(AUTH_SESSION_KEY, JSON.stringify({ id: account.id, name: account.name, email: account.email }));
+  setAuthStatus(authT('accountCreated'), 'success');
   updateAuthVisibility();
 }
 
@@ -893,17 +1103,18 @@ async function loginDoctor(event) {
   const account = getDoctorAccounts().find((item) => item.email === email && item.password_hash === password_hash);
 
   if (!account) {
-    setAuthStatus(t('invalidCredentials'), 'error');
+    setAuthStatus(authT('invalidCredentials'), 'error');
     return;
   }
 
-  localStorage.setItem(AUTH_SESSION_KEY, JSON.stringify({ id: account.id, name: account.name, email: account.email }));
-  setAuthStatus(t('loginSuccess'), 'success');
+  sessionStorage.setItem(AUTH_SESSION_KEY, JSON.stringify({ id: account.id, name: account.name, email: account.email }));
+  setAuthStatus(authT('loginSuccess'), 'success');
   updateAuthVisibility();
 }
 
 function logoutDoctor() {
-  localStorage.removeItem(AUTH_SESSION_KEY);
+  sessionStorage.removeItem(AUTH_SESSION_KEY);
+  localStorage.removeItem('ai_doctor_current_doctor_v1');
   state.patientId = '';
   state.latestReportUrl = '';
   state.chatReady = false;
@@ -923,6 +1134,7 @@ function initializeAuth() {
 
 
 function initializeFrontend() {
+  initializeDisplayControls();
   setLanguage(state.lang);
   initializeAuth();
   renderSeverityLegend();
@@ -931,6 +1143,9 @@ function initializeFrontend() {
   previewSelectedImage('labFile', 'labPreview');
   bindClick('createPatientBtn', createPatient, 'patientStatus');
   bindClick('loadPatientBtn', useExistingPatient, 'patientStatus');
+  bindClick('refreshPatientsBtn', loadPatientsDirectory, 'patientDirectoryStatus');
+  bindClick('refreshPatientsBtnTop', loadPatientsDirectory, 'patientDirectoryStatus');
+  $('patientSearch')?.addEventListener('input', renderPatientsDirectory);
   bindClick('uploadXrayBtn', async () => uploadFile('xray'), 'xrayStatus');
   bindClick('uploadLabBtn', async () => uploadFile('lab'), 'labStatus');
   bindClick('analyzeXrayBtn', analyzeXray, 'xrayStatus');

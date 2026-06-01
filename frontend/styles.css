@@ -404,3 +404,116 @@ html[data-theme="dark"] .clinical-alert--info {
 
 @media (max-width: 720px) {
 }
+
+/* Patient directory / records panel */
+.patient-directory-panel {
+  margin-block: 22px;
+}
+
+.patient-directory-tools {
+  display: grid;
+  grid-template-columns: minmax(220px, 1fr) auto;
+  gap: 12px;
+  align-items: center;
+  margin: 14px 0 12px;
+}
+
+.patient-directory-tools input {
+  width: 100%;
+  min-height: 46px;
+  border-radius: 16px;
+  border: 1px solid rgba(28, 92, 125, 0.18);
+  background: rgba(255,255,255,0.92);
+  padding: 0 16px;
+  color: #102f3b;
+  font-weight: 700;
+  outline: none;
+}
+
+.patient-directory-tools input:focus {
+  border-color: rgba(17, 132, 185, 0.55);
+  box-shadow: 0 0 0 4px rgba(17,132,185,0.12);
+}
+
+.patient-directory-table-wrap {
+  overflow: auto;
+  border-radius: 18px;
+  border: 1px solid rgba(28, 92, 125, 0.12);
+  background: rgba(255,255,255,0.72);
+}
+
+.patient-directory-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 820px;
+}
+
+.patient-directory-table th,
+.patient-directory-table td {
+  padding: 13px 14px;
+  text-align: start;
+  border-bottom: 1px solid rgba(28, 92, 125, 0.10);
+  vertical-align: middle;
+  color: #143746;
+}
+
+.patient-directory-table th {
+  font-size: 0.84rem;
+  color: #42677a;
+  background: rgba(237, 248, 252, 0.82);
+  font-weight: 950;
+  white-space: nowrap;
+}
+
+.patient-directory-table tbody tr:hover {
+  background: rgba(20, 143, 184, 0.06);
+}
+
+.patient-directory-empty {
+  min-height: 86px;
+  display: grid;
+  place-items: center;
+  border-radius: 18px;
+  border: 1px dashed rgba(28, 92, 125, 0.20);
+  background: rgba(255,255,255,0.62);
+  color: #567284;
+  font-weight: 850;
+  text-align: center;
+  padding: 18px;
+}
+
+.patient-open-btn {
+  white-space: nowrap;
+}
+
+html[data-theme="dark"] .patient-directory-tools input,
+html[data-theme="dark"] .patient-directory-table-wrap,
+html[data-theme="dark"] .patient-directory-empty {
+  background: rgba(14, 31, 47, 0.82);
+  border-color: rgba(149, 199, 224, 0.18);
+  color: #e8f6ff;
+}
+
+html[data-theme="dark"] .patient-directory-table th {
+  background: rgba(30, 63, 85, 0.88);
+  color: #b8d7e7;
+}
+
+html[data-theme="dark"] .patient-directory-table td {
+  color: #e8f6ff;
+  border-bottom-color: rgba(149, 199, 224, 0.12);
+}
+
+html[data-theme="dark"] .patient-directory-table tbody tr:hover {
+  background: rgba(102, 205, 255, 0.08);
+}
+
+html[data-theme="dark"] .patient-directory-empty {
+  color: #b9d7e8;
+}
+
+@media (max-width: 720px) {
+  .patient-directory-tools {
+    grid-template-columns: 1fr;
+  }
+}

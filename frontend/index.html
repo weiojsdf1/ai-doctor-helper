@@ -4,9 +4,12 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>AI Doctor Helper</title>
-  <link rel="icon" type="image/png" href="logo.png" />
-  <link rel="apple-touch-icon" href="logo.png" />
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" href="favicon.ico?v=30" sizes="any" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg?v=30" />
+  <link rel="shortcut icon" href="favicon.ico?v=30" />
+  <link rel="icon" type="image/png" href="favicon.png?v=30" />
+  <link rel="apple-touch-icon" href="favicon.png?v=30" />
+  <link rel="stylesheet" href="styles.css?v=44" />
 
   <style>
     .is-hidden { display: none !important; }
@@ -139,61 +142,386 @@
       .auth-brand { padding: 26px; }
       .auth-form-panel { padding: 26px; }
     }
+
+
+    .patient-form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+      align-items: start;
+    }
+    .patient-form-grid label {
+      margin: 0;
+    }
+    .patient-form-grid .field--full {
+      grid-column: 1 / -1;
+    }
+    .patient-form-grid textarea {
+      min-height: 118px;
+      resize: vertical;
+    }
+    .auth-form .form-row {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+    .auth-form .field--full {
+      grid-column: 1 / -1;
+    }
+    .auth-card {
+      min-height: 560px;
+    }
+
+
+    .auth-topbar {
+      position: fixed;
+      inset-block-start: 18px;
+      inset-inline-end: 18px;
+      z-index: 20;
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      padding: 8px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.76);
+      border: 1px solid rgba(16, 90, 120, 0.14);
+      box-shadow: 0 14px 30px rgba(10, 58, 84, 0.12);
+      backdrop-filter: blur(14px);
+    }
+    .theme-toggle-btn {
+      border: 1px solid rgba(255,255,255,0.24);
+      color: #e9f6ff;
+      background: rgba(255,255,255,0.09);
+      border-radius: 999px;
+      padding: 9px 13px;
+      cursor: pointer;
+      font-weight: 850;
+    }
+    .auth-topbar .lang-btn,
+    .auth-topbar .theme-toggle-btn {
+      color: #0f536d;
+      background: rgba(255,255,255,0.74);
+      border-color: rgba(15, 109, 142, 0.18);
+      box-shadow: none;
+    }
+    .auth-topbar .lang-btn.is-active {
+      color: #ffffff;
+      background: linear-gradient(135deg, #0f6d8e, #0f9f86);
+    }
+    .password-field {
+      position: relative;
+      display: grid;
+    }
+    .password-field input {
+      padding-inline-end: 82px;
+      margin-top: 0;
+    }
+    .password-toggle {
+      position: absolute;
+      inset-inline-end: 8px;
+      top: 50%;
+      transform: translateY(-50%);
+      border: 0;
+      border-radius: 999px;
+      padding: 7px 10px;
+      cursor: pointer;
+      font-weight: 850;
+      color: #0f6d8e;
+      background: #eaf7f9;
+    }
+    html[dir="rtl"] .password-field input { padding-inline-start: 82px; padding-inline-end: 14px; }
+    html[dir="rtl"] .password-toggle { inset-inline-start: 8px; inset-inline-end: auto; }
+    .scroll-top-btn {
+      position: fixed;
+      inset-inline-end: 22px;
+      inset-block-end: 22px;
+      width: 46px;
+      height: 46px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.24);
+      background: linear-gradient(135deg, #0875be, #0f9f86);
+      color: #ffffff;
+      font-size: 22px;
+      font-weight: 950;
+      cursor: pointer;
+      box-shadow: 0 16px 34px rgba(8, 117, 190, 0.25);
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(12px);
+      transition: opacity 0.2s ease, transform 0.2s ease;
+      z-index: 50;
+    }
+    .scroll-top-btn.is-visible {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+    html[data-theme="dark"] .auth-screen {
+      background:
+        radial-gradient(circle at top left, rgba(53, 189, 233, 0.18), transparent 36%),
+        radial-gradient(circle at bottom right, rgba(51, 211, 153, 0.16), transparent 34%),
+        linear-gradient(135deg, #07131f 0%, #0b1f2d 52%, #071720 100%);
+    }
+    html[data-theme="dark"] .auth-card {
+      background: rgba(10, 25, 38, 0.94);
+      border-color: rgba(139, 205, 226, 0.18);
+      box-shadow: 0 26px 90px rgba(0,0,0,0.38);
+    }
+    html[data-theme="dark"] .auth-form h2,
+    html[data-theme="dark"] .auth-form label {
+      color: #e6f5fb;
+    }
+    html[data-theme="dark"] .auth-form input {
+      background: #0f2637;
+      color: #edf8fc;
+      border-color: rgba(168, 215, 232, 0.22);
+    }
+    html[data-theme="dark"] .auth-tabs {
+      background: rgba(255,255,255,0.06);
+    }
+    html[data-theme="dark"] .auth-tab {
+      color: #b8d6e2;
+    }
+    html[data-theme="dark"] .auth-tab.is-active {
+      background: #12364b;
+      color: #ffffff;
+    }
+    html[data-theme="dark"] .auth-topbar {
+      background: rgba(8, 23, 36, 0.78);
+      border-color: rgba(160, 221, 241, 0.18);
+    }
+    html[data-theme="dark"] .auth-topbar .lang-btn,
+    html[data-theme="dark"] .auth-topbar .theme-toggle-btn,
+    html[data-theme="dark"] .password-toggle {
+      color: #dff6ff;
+      background: rgba(255,255,255,0.10);
+      border-color: rgba(255,255,255,0.16);
+    }
+    html[data-theme="dark"] .auth-status { color: #73d7ff; }
+    html[data-theme="dark"] .auth-status.success { color: #72e6b2; }
+    html[data-theme="dark"] .auth-status.error { color: #ff9aa7; }
+
+    @media (max-width: 720px) {
+      .patient-form-grid,
+      .auth-form .form-row {
+        grid-template-columns: 1fr;
+      }
+      .patient-form-grid .field--full,
+      .auth-form .field--full {
+        grid-column: auto;
+      }
+    }
+
+
+    #authScreen { direction: ltr; }
+    #authScreen .auth-form-panel,
+    #authScreen .auth-form,
+    #authScreen .auth-brand { text-align: left; }
+    #authScreen .auth-note { width: fit-content; }
+    #authScreen .auth-topbar { inset-inline-end: 18px; inset-inline-start: auto; }
+
+  </style>
+
+
+  <style>
+    /* Professional authentication layout refinements */
+    .auth-screen {
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: center !important;
+      justify-content: center !important;
+      gap: 18px !important;
+      padding: 26px 16px 34px !important;
+    }
+    #authScreen .auth-topbar {
+      position: static !important;
+      inset: auto !important;
+      align-self: center !important;
+      width: min(960px, 100%) !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: flex-start !important;
+      gap: 12px !important;
+      padding: 0 !important;
+      margin: 0 !important;
+      background: transparent !important;
+      border: 0 !important;
+      box-shadow: none !important;
+      backdrop-filter: none !important;
+    }
+    .auth-language-group {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 5px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.76);
+      border: 1px solid rgba(15,109,142,0.14);
+      box-shadow: 0 10px 24px rgba(10,58,84,0.08);
+      backdrop-filter: blur(12px);
+    }
+    .auth-lang-btn {
+      min-width: 68px;
+      height: 34px;
+      border: 0;
+      border-radius: 999px;
+      padding: 0 12px;
+      color: #0f536d;
+      background: transparent;
+      font-weight: 850;
+      font-size: 13px;
+      line-height: 1;
+      cursor: pointer;
+    }
+    .auth-lang-btn.is-active {
+      color: #ffffff;
+      background: linear-gradient(135deg, #0f6d8e, #0f9f86);
+      box-shadow: 0 8px 16px rgba(15,109,142,0.18);
+    }
+    .theme-toggle-icon {
+      width: 40px !important;
+      height: 40px !important;
+      min-width: 40px !important;
+      padding: 0 !important;
+      display: inline-grid !important;
+      place-items: center !important;
+      border-radius: 999px !important;
+      color: #0f536d !important;
+      background: rgba(255,255,255,0.78) !important;
+      border: 1px solid rgba(15,109,142,0.14) !important;
+      box-shadow: 0 10px 24px rgba(10,58,84,0.08) !important;
+      font-size: 19px !important;
+      line-height: 1 !important;
+    }
+    .theme-toggle-icon .theme-icon { transform: translateY(-1px); }
+    .password-field input { padding-inline-end: 54px !important; }
+    html[dir="rtl"] .password-field input { padding-inline-start: 14px !important; padding-inline-end: 54px !important; }
+    .password-toggle {
+      position: absolute;
+      inset-inline-end: 8px !important;
+      inset-inline-start: auto !important;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 36px;
+      height: 36px;
+      display: grid;
+      place-items: center;
+      border: 0;
+      border-radius: 999px;
+      padding: 0;
+      cursor: pointer;
+      color: #0f6d8e;
+      background: #eaf7f9;
+      transition: background 0.18s ease, color 0.18s ease, transform 0.18s ease;
+    }
+    .password-toggle:hover { background: #d8f0f4; color: #0b5878; }
+    .password-toggle:active { transform: translateY(-50%) scale(0.96); }
+    .password-toggle svg {
+      width: 19px;
+      height: 19px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.9;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .password-toggle .eye-closed { display: none; }
+    .password-toggle.is-visible .eye-open { display: none; }
+    .password-toggle.is-visible .eye-closed { display: block; }
+    #authScreen .auth-card { margin-top: 0 !important; }
+    html[data-theme="dark"] .auth-language-group,
+    html[data-theme="dark"] .theme-toggle-icon {
+      background: rgba(8, 23, 36, 0.78) !important;
+      border-color: rgba(160, 221, 241, 0.18) !important;
+      color: #dff6ff !important;
+      box-shadow: 0 12px 28px rgba(0,0,0,0.26) !important;
+    }
+    html[data-theme="dark"] .auth-lang-btn { color: #dff6ff; }
+    html[data-theme="dark"] .auth-lang-btn.is-active { color: #07131f; background: linear-gradient(135deg, #70d6ff, #7ee7bd); }
+    html[data-theme="dark"] .password-toggle { background: rgba(255,255,255,0.10); color: #dff6ff; }
+    html[data-theme="dark"] .password-toggle:hover { background: rgba(255,255,255,0.16); }
+    @media (max-width: 720px) {
+      #authScreen .auth-topbar { justify-content: center !important; }
+      .auth-lang-btn { min-width: 62px; padding: 0 10px; }
+    }
   </style>
 
 </head>
 <body>
 
   <section id="authScreen" class="auth-screen" aria-label="Doctor authentication">
+    <div class="auth-topbar" aria-label="Display preferences">
+      <div class="auth-language-group" aria-label="Workspace language">
+        <button id="authLangArBtn" class="auth-lang-btn is-active" type="button" aria-label="Arabic">العربية</button>
+        <button id="authLangEnBtn" class="auth-lang-btn" type="button" aria-label="English">English</button>
+      </div>
+      <button id="authThemeToggleBtn" class="theme-toggle-btn theme-toggle-icon" type="button" aria-label="Dark mode" title="Dark mode">
+        <span class="theme-icon" aria-hidden="true">☾</span>
+      </button>
+    </div>
     <div class="auth-card">
       <div class="auth-brand">
         <div>
           <div class="auth-brand__logo" aria-hidden="true">
             <img src="logo.png" alt="Doctor AI logo" />
           </div>
-          <h1 data-i18n="doctorPortalTitle">بوابة الطبيب</h1>
-          <p data-i18n="doctorPortalSubtitle">سجّل الدخول للوصول إلى مساحة تحليل الحالات الطبية وإدارة تقارير المرضى.</p>
+          <h1>Doctor Portal</h1>
+          <p>Secure access to the clinical workspace for patient imaging, lab correlation, and case review.</p>
         </div>
+        <div class="auth-note">Clinical workspace access</div>
       </div>
 
       <div class="auth-form-panel">
         <div class="auth-tabs">
-          <button id="loginTabBtn" class="auth-tab is-active" type="button" data-i18n="loginTab">تسجيل الدخول</button>
-          <button id="registerTabBtn" class="auth-tab" type="button" data-i18n="registerTab">إنشاء حساب</button>
+          <button id="loginTabBtn" class="auth-tab is-active" type="button">Sign in</button>
+          <button id="registerTabBtn" class="auth-tab" type="button">Create account</button>
         </div>
 
         <form id="loginForm" class="auth-form">
-          <h2 data-i18n="loginTitle">تسجيل دخول الطبيب</h2>
-          <label>
-            <span data-i18n="doctorEmail">البريد الإلكتروني</span>
+          <h2>Doctor sign in</h2>
+          <label class="field--full">
+            <span>Email address</span>
             <input id="loginEmail" type="email" autocomplete="email" required />
           </label>
-          <label>
-            <span data-i18n="doctorPassword">كلمة المرور</span>
-            <input id="loginPassword" type="password" autocomplete="current-password" required />
+          <label class="field--full">
+            <span>Password</span>
+            <div class="password-field">
+              <input id="loginPassword" type="password" autocomplete="current-password" required />
+              <button class="password-toggle" type="button" data-toggle-password="loginPassword" aria-label="Show password" title="Show password"><svg class="eye-open" viewBox="0 0 24 24" aria-hidden="true"><path d="M2.25 12s3.75-6.75 9.75-6.75S21.75 12 21.75 12 18 18.75 12 18.75 2.25 12 2.25 12Z"/><circle cx="12" cy="12" r="2.75"/></svg><svg class="eye-closed" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3l18 18"/><path d="M10.58 10.58A2.75 2.75 0 0 0 13.42 13.42"/><path d="M7.13 7.31C4.09 9.12 2.25 12 2.25 12S6 18.75 12 18.75c1.57 0 2.98-.46 4.2-1.13"/><path d="M14.15 5.58A8.76 8.76 0 0 0 12 5.25C6 5.25 2.25 12 2.25 12s.82 1.48 2.3 3.03"/><path d="M19.49 15.03C20.94 13.49 21.75 12 21.75 12s-1.9-3.42-5.1-5.2"/></svg></button>
+            </div>
           </label>
-          <button class="btn btn--primary" type="submit" data-i18n="loginButton">دخول</button>
+          <button class="btn btn--primary" type="submit">Sign in</button>
         </form>
 
         <form id="registerForm" class="auth-form is-hidden">
-          <h2 data-i18n="registerTitle">إنشاء حساب طبيب</h2>
-          <label>
-            <span data-i18n="doctorName">اسم الطبيب</span>
-            <input id="registerName" type="text" autocomplete="name" required />
-          </label>
-          <label>
-            <span data-i18n="doctorEmail">البريد الإلكتروني</span>
-            <input id="registerEmail" type="email" autocomplete="email" required />
-          </label>
-          <label>
-            <span data-i18n="doctorPassword">كلمة المرور</span>
-            <input id="registerPassword" type="password" autocomplete="new-password" minlength="6" required />
-          </label>
-          <label>
-            <span data-i18n="doctorPasswordConfirm">تأكيد كلمة المرور</span>
-            <input id="registerPasswordConfirm" type="password" autocomplete="new-password" minlength="6" required />
-          </label>
-          <button class="btn btn--primary" type="submit" data-i18n="registerButton">إنشاء الحساب</button>
+          <h2>Create doctor account</h2>
+          <div class="form-row">
+            <label>
+              <span>Doctor name</span>
+              <input id="registerName" type="text" autocomplete="name" required />
+            </label>
+            <label>
+              <span>Email address</span>
+              <input id="registerEmail" type="email" autocomplete="email" required />
+            </label>
+          </div>
+          <div class="form-row">
+            <label>
+              <span>Password</span>
+              <div class="password-field">
+                <input id="registerPassword" type="password" autocomplete="new-password" minlength="6" required />
+                <button class="password-toggle" type="button" data-toggle-password="registerPassword" aria-label="Show password" title="Show password"><svg class="eye-open" viewBox="0 0 24 24" aria-hidden="true"><path d="M2.25 12s3.75-6.75 9.75-6.75S21.75 12 21.75 12 18 18.75 12 18.75 2.25 12 2.25 12Z"/><circle cx="12" cy="12" r="2.75"/></svg><svg class="eye-closed" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3l18 18"/><path d="M10.58 10.58A2.75 2.75 0 0 0 13.42 13.42"/><path d="M7.13 7.31C4.09 9.12 2.25 12 2.25 12S6 18.75 12 18.75c1.57 0 2.98-.46 4.2-1.13"/><path d="M14.15 5.58A8.76 8.76 0 0 0 12 5.25C6 5.25 2.25 12 2.25 12s.82 1.48 2.3 3.03"/><path d="M19.49 15.03C20.94 13.49 21.75 12 21.75 12s-1.9-3.42-5.1-5.2"/></svg></button>
+              </div>
+            </label>
+            <label>
+              <span>Confirm password</span>
+              <div class="password-field">
+                <input id="registerPasswordConfirm" type="password" autocomplete="new-password" minlength="6" required />
+                <button class="password-toggle" type="button" data-toggle-password="registerPasswordConfirm" aria-label="Show password" title="Show password"><svg class="eye-open" viewBox="0 0 24 24" aria-hidden="true"><path d="M2.25 12s3.75-6.75 9.75-6.75S21.75 12 21.75 12 18 18.75 12 18.75 2.25 12 2.25 12Z"/><circle cx="12" cy="12" r="2.75"/></svg><svg class="eye-closed" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3l18 18"/><path d="M10.58 10.58A2.75 2.75 0 0 0 13.42 13.42"/><path d="M7.13 7.31C4.09 9.12 2.25 12 2.25 12S6 18.75 12 18.75c1.57 0 2.98-.46 4.2-1.13"/><path d="M14.15 5.58A8.76 8.76 0 0 0 12 5.25C6 5.25 2.25 12 2.25 12s.82 1.48 2.3 3.03"/><path d="M19.49 15.03C20.94 13.49 21.75 12 21.75 12s-1.9-3.42-5.1-5.2"/></svg></button>
+              </div>
+            </label>
+          </div>
+          <button class="btn btn--primary" type="submit">Create account</button>
         </form>
 
         <div id="authStatus" class="auth-status" aria-live="polite"></div>
@@ -215,6 +543,7 @@
       <div class="language-toggle" aria-label="Language switch">
         <button id="langArBtn" class="lang-btn is-active" type="button"> العربية</button>
         <button id="langEnBtn" class="lang-btn" type="button">English</button>
+        <button id="themeToggleBtn" class="theme-toggle-btn" type="button" data-i18n="themeDark">الوضع الليلي</button>
         <span id="doctorSessionBadge" class="doctor-session is-hidden"></span>
         <button id="logoutBtn" class="lang-btn is-hidden" type="button" data-i18n="logout">تسجيل الخروج</button>
       </div>
@@ -262,22 +591,36 @@
           <span class="mini-badge" data-i18n="required">مطلوب</span>
         </div>
 
-        <div class="grid two">
-          <label><span data-i18n="patientName">اسم المريض</span><input id="patientName" data-i18n-placeholder="patientNamePlaceholder" /></label>
-          <label><span data-i18n="patientId">رقم الهاتف</span><input id="patientId" inputmode="tel" autocomplete="tel" data-i18n-placeholder="patientIdPlaceholder" /></label>
-          <label><span data-i18n="age">العمر</span><input id="age" type="number"  /></label>
-          <label><span data-i18n="sex">الجنس</span>
+        <div class="patient-form-grid">
+          <label>
+            <span data-i18n="patientName">اسم المريض</span>
+            <input id="patientName" data-i18n-placeholder="patientNamePlaceholder" />
+          </label>
+          <label>
+            <span data-i18n="phone">رقم الهاتف</span>
+            <input id="phone" type="tel" inputmode="tel" autocomplete="tel" data-i18n-placeholder="phonePlaceholder" />
+          </label>
+          <input id="patientId" type="hidden" />
+          <label>
+            <span data-i18n="age">العمر</span>
+            <input id="age" type="number" min="0" max="130" data-i18n-placeholder="agePlaceholder" />
+          </label>
+          <label>
+            <span data-i18n="sex">الجنس</span>
             <select id="sex">
               <option value="Female" data-i18n="sexFemale">أنثى</option>
               <option value="Male" data-i18n="sexMale">ذكر</option>
             </select>
           </label>
+          <label class="field--full">
+            <span data-i18n="notes">ملاحظات سريرية</span>
+            <textarea id="notes" data-i18n-placeholder="notesPlaceholder" placeholder="الأعراض، القصة المرضية، الحرارة، السعال، تشبع الأكسجين، أمراض سابقة..."></textarea>
+          </label>
         </div>
-        <label><span data-i18n="notes">ملاحظات سريرية</span><textarea id="notes" placeholder="الأعراض، القصة المرضية، الحرارة، السعال، تشبع الأكسجين، أمراض سابقة..." data-i18n-placeholder="notesPlaceholder"></textarea></label>
 
         <div class="actions">
           <button id="createPatientBtn" class="btn btn--primary" data-i18n="createPatient">إنشاء مريض</button>
-          <button id="loadPatientBtn" class="btn btn--secondary" data-i18n="useExisting">استخدام مريض موجود</button>
+          <button id="refreshPatientsBtn" class="btn btn--secondary" data-i18n="refreshPatients">تحديث القائمة</button>
         </div>
         <div id="patientStatus" class="status"></div>
       </article>
@@ -295,7 +638,7 @@
         <div class="image-preview" id="xrayPreview"><span data-i18n="noXrayPreview">لا توجد معاينة للأشعة بعد</span></div>
 
         <div class="actions">
-          <button id="uploadXrayBtn" class="btn btn--secondary" data-i18n="uploadXray">رفع الصورة</button>
+          <button id="uploadXrayBtn" class="btn btn--secondary" data-i18n="uploadXray">رفع الأشعة</button>
           <button id="analyzeXrayBtn" class="btn btn--primary" data-i18n="analyzeXray">تحليل الأشعة</button>
         </div>
         <div id="xrayStatus" class="status"></div>
@@ -320,6 +663,23 @@
         </div>
         <div id="labStatus" class="status"></div>
       </article>
+    </section>
+
+    <section class="panel patient-directory-panel" aria-label="Patient records">
+      <div class="panel__header">
+        <div>
+          <p class="section-kicker" data-i18n="patientDirectoryKicker">سجل المرضى</p>
+          <h2 data-i18n="patientDirectoryTitle">المرضى الذين تم تحليلهم</h2>
+          <p class="muted" data-i18n="patientDirectoryHint">ابحث بالاسم أو رقم الهاتف أو معرّف المريض، ثم افتح ملف المريض لاستكمال العمل.</p>
+        </div>
+        <button id="refreshPatientsBtnTop" class="btn btn--ghost btn--small" data-i18n="refreshPatients" type="button">تحديث القائمة</button>
+      </div>
+      <div class="patient-directory-tools">
+        <input id="patientSearch" type="search" data-i18n-placeholder="patientSearchPlaceholder" placeholder="بحث بالاسم، رقم الهاتف، أو معرّف المريض..." />
+        <span id="patientDirectoryCount" class="state-pill state-pill--idle" data-i18n="patientCount">عدد المرضى</span>
+      </div>
+      <div id="patientsDirectory" class="patient-directory-empty" data-i18n="noPatientsYet">لا توجد سجلات مرضى بعد.</div>
+      <div id="patientDirectoryStatus" class="status"></div>
     </section>
 
     <section class="clinical-legend panel panel--compact" aria-label="Severity colors">
@@ -389,6 +749,7 @@
     </section>
   </main>
 
-  <script src="app.js"></script>
+  <button id="scrollTopBtn" class="scroll-top-btn" type="button" aria-label="Scroll to top">↑</button>
+  <script src="app.js?v=44"></script>
 </body>
 </html>
